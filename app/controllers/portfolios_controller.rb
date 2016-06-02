@@ -1,5 +1,6 @@
 class PortfoliosController < ApplicationController
   def index
+    @portfolios = Portfolio.all
   end
 
   def new
@@ -20,6 +21,22 @@ class PortfoliosController < ApplicationController
 
   def show
     @portfolio = Portfolio.find(params[:id])
+  end
+
+  def edit
+    @portfolio = Portfolio.find(params[:id])
+  end
+
+  def update
+    @portfolio = Portfolio.find(params[:id])
+    
+    if @portfolio.update(portfolio_params)
+      flash[:notice] = "Portfolio has been updated."
+      redirect_to @portfolio
+    else
+      flash.now[:alert] = "Portfolio has not been updated."
+      render "edit"
+    end
   end
 
   private

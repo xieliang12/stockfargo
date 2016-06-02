@@ -1,0 +1,23 @@
+<%= form_for(portfolio) do |f| %>
+
+  <% if portfolio.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(portfolio.errors.count, "error") %>
+      prohibited this project from being saved:</h2>
+
+      <ul>
+        <% portfolio.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+     </div>
+  <% end %>
+  
+  <p>
+    <%-#= f.label :name -%>
+    <%= f.label :name, 'Enther the name of your portfolio' %><br>
+    <%= f.text_field :name %>
+  </p>
+
+  <%= f.submit %>
+<% end %>
