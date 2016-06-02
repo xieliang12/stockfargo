@@ -13,6 +13,8 @@ class PortfoliosController < ApplicationController
       flash[:notice] = "Portfolio has been created."
       redirect_to @portfolio
     else
+      flash.now[:alert] = "Portfolio has not been created."
+      render "new"
     end
   end
 
