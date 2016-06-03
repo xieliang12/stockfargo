@@ -1,4 +1,6 @@
 class PortfoliosController < ApplicationController
+  before_action :set_portfolio, only: [:show, :edit, :update, :destroy]
+
   def index
     @portfolios = Portfolio.all
   end
@@ -51,6 +53,13 @@ class PortfoliosController < ApplicationController
 
   def portfolio_params
     params.require(:portfolio).permit(:name)
+  end
+
+  def set_portfolio
+    @portfolio = Portfolio.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    flash[:alert] = "The portfolio you were looking for could not be found."
+    redirect_to portfolios_path
   end
 
 end
