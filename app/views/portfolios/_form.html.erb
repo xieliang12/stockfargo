@@ -1,4 +1,4 @@
-<%= form_for(portfolio) do |f| %>
+<%= simple_form_for(portfolio) do |f| %>
 
   <% if portfolio.errors.any? %>
     <div id="error_explanation">
@@ -13,11 +13,8 @@
      </div>
   <% end %>
   
-  <p>
     <%-#= f.label :name -%>
-    <%= f.label :name, 'Enther the name of your portfolio' %><br>
-    <%= f.text_field :name %>
-  </p>
+    <%= f.input :name, label: 'Enter the name of your portfolio' %>
+    <%= f.button :submit, class: "btn-primary" %>
 
-  <%= f.submit %>
 <% end %>
