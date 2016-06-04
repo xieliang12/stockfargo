@@ -1,6 +1,11 @@
-<h1>Portfolios</h1>
+<header>
+  <h1>Portfolios</h1>
 
-<%= link_to "Create New Portfolio", new_portfolio_path %>
+  <ul class="actions">
+    <li><%= link_to "Create New Portfolio", new_portfolio_path,
+      class: "new" %></li>
+    </ul>
+  </header>
 
 <div id="portfolios">
   <% @portfolios.each do |portfolio| %>

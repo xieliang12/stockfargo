@@ -24,6 +24,9 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'pg', '~> 0.18.4'
 gem 'therubyracer', '~> 0.12.2', :platforms => :ruby
 gem 'devise', '~> 4.1.1'
+gem 'bootstrap-sass', '~> 3.3.6'
+gem 'font-awesome-rails', '~> 4.6.3'
+gem 'simple_form', '~> 3.2.1'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
