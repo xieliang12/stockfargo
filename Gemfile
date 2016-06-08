@@ -28,6 +28,9 @@ gem 'bootstrap-sass', '~> 3.3.6'
 gem 'font-awesome-rails', '~> 4.6.3'
 gem 'simple_form', '~> 3.2.1'
 gem 'devise', '~> 4.1.1'
+gem 'jquery-datatables-rails', '~> 3.3.0'
+gem 'jquery-ui-rails', '~> 5.0.5'
+gem 'sequel', '~> 4.35'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
