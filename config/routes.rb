@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   resources :portfolios
   get '/portfolios' => 'portfolios#index'
 
+  get '/stocks' => 'stocks#index'
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

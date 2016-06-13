@@ -24,7 +24,7 @@
         </tr>
       </thead>
       <tbody>
-      <% @data.each do |element| %>
+      <% @stocks.each do |element| %>
         <tr>
           <td><%= element[:symbol] %></td>
           <td><%= element[:company_name] %></td>
@@ -58,7 +58,7 @@
         </tr>
       </thead>
       <tbody>
-      <% @data.each do |element| %>
+      <% @stocks.each do |element| %>
         <tr>
           <td><%= element[:symbol] %></td>
           <td><%= element[:market_cap] %></td>
@@ -70,9 +70,9 @@
           <td><%= element[:eps_estimate_next_quarter] %></td>
           <td><%= element[:eps_estimate_current_year] %></td>
           <td><%= element[:fifty_day_moving_average] %></td>
-          <td><%= element[:percent_change_from_50_day_moving_average %></td>
+          <td><%= element[:percent_change_from_50_day_moving_average] %></td>
           <td><%= element[:two_hundred_day_moving_average] %></td>
-          <td><%= element[:percent_change_from_200_day_moving_average %></td>              <td><%= element[:volume] %></td>
+          <td><%= element[:percent_change_from_200_day_moving_average] %></td>              <td><%= element[:volume] %></td>
         </tr>
       <% end %>
       </tbody>
@@ -100,7 +100,7 @@
         </tr>
       </thead>
       <tbody>
-      <% @data.each do |element| %>
+      <% @stocks.each do |element| %>
         <tr>
           <td><%= element[:symbol] %></td>
           <td><%= element[:fifty_two_week_high] %></td>

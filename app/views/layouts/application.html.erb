@@ -27,6 +27,9 @@
       <li class="<%= "active" if current_page?("/") %>">
       <%= link_to "Home", root_path %>
       </li>
+      <li class="<%= "active" if current_page?("/stocks") %>">
+      <%= link_to "Stock Screener", stocks_path %>
+      </li>
       <li class="<%= "active" if current_page?("/portfolios") %>">
       <%= link_to "Portfolios", portfolios_path %>
       </li>
