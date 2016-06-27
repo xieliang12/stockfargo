@@ -12,7 +12,5 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require stock_tables_display
-//= require turbolinks
 //= require bootstrap-sprockets
 //= require_tree .

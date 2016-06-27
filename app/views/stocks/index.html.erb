@@ -1,126 +1,54 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <h1>stocks</h1>
+    <h3>Stocks</h3>
   </head>
 
-  <div id="outer">
-    <input type="button" value="Overview" onclick='show(1)' />
-    <input type="button" value="Valuation and Technical" onclick='show(2)' />
-    <input type="button" value="Financial and Ownership" onclick='show(3)' />
-  </div>
-
-  <body>
-    <table id="table1" class="table table-condensed">
-      <thead>
-        <tr>
-          <th>Ticker</th>
-          <th>Company</th>
-          <th>Sector</th>
-          <th>Industry</th>
-          <th>Maket_cap</th>
-          <th>P/E</th>
-          <th>Volume</th>
-        </tr>
-      </thead>
-      <tbody>
-      <% @stocks.each do |element| %>
-        <tr>
-          <td><%= element[:symbol] %></td>
-          <td><%= element[:company_name] %></td>
-          <td><%= element[:sector] %></td>
-          <td><%= element[:industry] %></td>
-          <td><%= element[:market_cap] %></td>
-          <td><%= element[:p_e_ratio] %></td>
-          <td><%= element[:volume] %></td>
-        </tr>
-      <% end %>
+  <body> 
+    <%= will_paginate @stocks %>
+      <table id="stocks" class="table table-condensed">
+        <thead>
+          <tr>
+            <th>Ticker</th>
+            <th>Sector</th>
+            <th>Industry</th>
+            <th>Maket_cap</th>
+            <th>P/E</th>
+            <th>PEG</th>
+            <th>P/S</th>
+            <th>P/B</th>
+            <th>EPS</th>
+            <th>52_week_high</th>
+            <th>52_week_low</th>
+            <th>Short_ratio</th>
+            <th>Institutions held</th>
+            <th>Volume</th>
+          </tr>
+        </thead>
+        <tbody>
+        <% @stocks.each do |stock| %>
+          <tr>
+            <td class="blue">
+              <%= link_to stock do %>
+                <%= stock[:symbol] %>
+              <% end %>
+            </td>
+            <td><%= stock[:sector] %></td>
+            <td><%= stock[:industry] %></td>
+            <td><%= stock[:market_cap] %></td>
+            <td><%= stock[:p_e_ratio] %></td>
+            <td><%= stock[:peg_ratio] %></td>
+            <td><%= stock[:price_to_sales_ttm] %></td>
+            <td><%= stock[:price_to_book_mrq] %></td>
+            <td><%= stock[:earnings_per_share] %></td>
+            <td><%= stock[:fifty_two_week_high] %></td>
+            <td><%= stock[:fifty_two_week_low] %></td>
+            <td><%= stock[:short_ratio] %></td>
+            <td><%= stock[:pcnt_held_by_institutions] %></td>
+            <td><%= stock[:volume] %></td>
+          </tr>
+        <% end %>
       </tbody>
-    </table>
-
-    <table id="table2" class="table table-condensed">
-      <thead>
-        <tr>
-          <th>Ticker</th>
-          <th>Maket_cap</th>
-          <th>P/E</th>
-          <th>PEG</th>
-          <th>P/S</th>
-          <th>P/B</th>
-          <th>EPS</th>
-          <th>EPS_next_quarter</th>
-          <th>EPS_current_year</th>
-          <th>50_day_ma</th>
-          <th>50_day_ma_change</th>
-          <th>200_day_ma</th>
-          <th>200_day_ma_change</th>
-          <th>Volume</th>
-        </tr>
-      </thead>
-      <tbody>
-      <% @stocks.each do |element| %>
-        <tr>
-          <td><%= element[:symbol] %></td>
-          <td><%= element[:market_cap] %></td>
-          <td><%= element[:p_e_ratio] %></td>
-          <td><%= element[:peg_ratio] %></td>
-          <td><%= element[:price_to_sales_ttm] %></td>
-          <td><%= element[:price_to_book_mrg] %></td>
-          <td><%= element[:earnings_per_share] %></td>
-          <td><%= element[:eps_estimate_next_quarter] %></td>
-          <td><%= element[:eps_estimate_current_year] %></td>
-          <td><%= element[:fifty_day_moving_average] %></td>
-          <td><%= element[:percent_change_from_50_day_moving_average] %></td>
-          <td><%= element[:two_hundred_day_moving_average] %></td>
-          <td><%= element[:percent_change_from_200_day_moving_average] %></td>              <td><%= element[:volume] %></td>
-        </tr>
-      <% end %>
-      </tbody>
-    </table>
-    
-    <table id="table3" class="table table-condensed">
-      <thead>
-        <tr>
-          <th>Ticker</th>
-          <th>52_week_high</th>
-          <th>52_week_low</th>
-          <th>Shares</th>
-          <th>Short_ratio</th>
-          <th>Ebita</th>
-          <th>ROA</th>
-          <th>ROE</th>
-          <th>Shares_outstanding</th>
-          <th>Insiders_held</th>
-          <th>Institutions_held</th>
-          <th>Short_of_float</th>
-          <th>Operating_cash_flow</th>
-          <th>Levered_cash_flow</th>
-          <th>Book_value_per_share</th>
-          <th>Volume</th>
-        </tr>
-      </thead>
-      <tbody>
-      <% @stocks.each do |element| %>
-        <tr>
-          <td><%= element[:symbol] %></td>
-          <td><%= element[:fifty_two_week_high] %></td>
-          <td><%= element[:fifty_two_week_low] %></td>
-          <td><%= element[:shares_owned] %></td>
-          <td><%= element[:short_ratio] %></td>
-          <td><%= element[:ebitda] %></td>
-          <td><%= element[:roa_ttm] %></td>
-          <td><%= element[:roe_ttm] %></td>
-          <td><%= element[:shares_outstanding] %></td>
-          <td><%= element[:pcnt_held_by_insiders] %></td>
-          <td><%= element[:pcnt_held_by_institutions] %></td>
-          <td><%= element[:pcnt_short_of_float] %></td>
-          <td><%= element[:operating_cash_flow_ttm] %></td>
-          <td><%= element[:levered_cash_flow_ttm] %></td>
-          <td><%= element[:book_value_per_share_mrq] %></td>
-          <td><%= element[:volume] %></td>
-        </tr>
-      <% end %>
-      </tbody>
-    </table>
+      </table>
   </body>
 </html>

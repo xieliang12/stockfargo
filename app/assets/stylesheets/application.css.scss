@@ -2,8 +2,8 @@
 @import "bootstrap";
 @import "font-awesome";
 @import "portfolios";
-@import "responsive";
 @import "stocks";
+@import "responsive";
 
 header {
   @extend .page-header;
@@ -69,4 +69,9 @@ ul.actions {
 
 .alert-alert {
   @extend .alert-danger;
+}
+
+.button_to, .button_to div {
+  position: relative;
+  display: inline;
 }

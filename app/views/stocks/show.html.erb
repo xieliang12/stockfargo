@@ -1,0 +1,54 @@
+<h1><%= stock = @stock.symbol %></h1>
+<div>
+  <%= @stock.sector %> | <%= @stock.industry %> | <%= @stock.company_name %>
+</div>
+
+<div>
+  <img src="http://finviz.com/chart.ashx?t=<%=@stock.symbol%>&ty=c&ta=0&p=w&s=l">
+</div>
+
+<div>
+  <img src="http://finviz.com/chart.ashx?t=<%=@stock.symbol%>&ty=c&ta=0&p=d&s=l">
+</div>
+
+<div>
+  <img src='http://finviz.com/chart.ashx?t=<%=@stock.symbol%>&ty=c&ta=0&p=m&s=l'>
+</div>
+
+<table border="1">
+  <tr>
+    <td>Market Cap</td><td><%= @stock.market_cap %></td>
+    <td>EPS</td><td><%= @stock.earnings_per_share %></td>
+    <td>52 week high</td><td><%= @stock.fifty_two_week_high %></td>
+    <td>ROA</td><td><%= @stock.roa_ttm %></td>
+    <td>Volume</td><td><%= @stock.volume %></td>
+  </tr>
+  <tr>
+    <td>P/E</td><td><%= @stock.p_e_ratio %></td>
+    <td>EPS next quarter</td><td><%= @stock.eps_estimate_next_quarter %></td>
+    <td>52 week low</td><td><%= @stock.fifty_two_week_low %></td>
+    <td>ROE</td><td><%= @stock.roe_ttm %></td>
+    <td>Short of float</td><td><%= @stock.pcnt_short_of_float %><td>
+  </tr>
+  <tr>
+    <td>PEG</td><td><%= @stock.peg_ratio %></td>
+    <td>EPS year</td><td><%= @stock.eps_estimate_current_year %></td>
+    <td>50 day MA change</td><td><%= @stock.percent_change_from_50_day_moving_average %></td>
+    <td>Shares outstanding</td><td><%= @stock.shares_outstanding %></td>
+    <td>Operating cash flow</td><td><%= @stock.operating_cash_flow_ttm %></td>
+  </tr>
+  <tr>
+    <td>P/S</td><td><%= @stock.price_to_sales_ttm %></td>
+    <td>Shares owned</td><td><%= @stock.shares_owned %></td>
+    <td>200 day MA change</td><td><%= @stock.percent_change_from_200_day_moving_average %></td>
+    <td>Insider held</td><td><%= @stock.pcnt_held_by_insiders %></td>
+    <td>Levered cash flow</td><td><%= @stock.levered_cash_flow_ttm %></td>
+  </tr>
+  <tr>
+    <td>P/B</td><td><%= @stock.price_to_book_mrq %></td>
+    <td>Short ratio</td><td><%= @stock.short_ratio %></td>
+    <td>Ebita</td><td><%= @stock.ebitda %></td>
+    <td>Institution held</td><td><%= @stock.pcnt_held_by_institutions %></td>
+    <td>Book value per share</td><td><%= @stock.book_value_per_share_mrq %></td>
+  </tr>
+</table>
