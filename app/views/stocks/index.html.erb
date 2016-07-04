@@ -4,8 +4,48 @@
     <h3>Stocks</h3>
   </head>
 
+  <%= search_form_for @search do |f| %>
+    <div class="field">
+      <%= f.label :sector_eq, "Sector" %>
+      <%= f.select :sector_eq, @sector %>
+      <%= f.label :industry_eq, "Industry" %>
+      <%= f.select :industry_eq, @industry %>
+    </div>
+    <div class="field1">
+      <%= f.label :market_cap_gteq, "Market Cap >=" %>
+      <%= f.text_field :market_cap_gteq, :size => 15 %>
+      <%= f.label :p_e_ratio_gteq, "P/E >=" %>
+      <%= f.text_field :p_e_ratio_gteq, :size => 6 %>
+      <%= f.label :peg_ratio_gteq, "PEG >=" %>
+      <%= f.text_field :peg_ratio_gteq, :size => 6 %>
+      <%= f.label :price_to_sales_ttm_gteq, "P/S >=" %>
+      <%= f.text_field :price_to_sales_ttm_lteq, :size => 6 %>
+      <%= f.label :price_to_book_mrq_gteq, "P/B >=" %>
+      <%= f.text_field :price_to_book_mrq_gteq, :size => 6 %>
+      <%= f.label :earnings_per_share_gteq, "EPS >=" %>
+      <%= f.text_field :earnings_per_share_gteq, :size => 6 %>
+    </div>
+    <div>
+      <%= f.label :market_cap_lteq, "Market Cap <=" %>
+      <%= f.text_field :market_cap_lteq, :size => 15 %>
+      <%= f.label :p_e_ratio_lteq, " P/E <=" %>
+      <%= f.text_field :p_e_ratio_lteq, :size => 6 %>
+      <%= f.label :peg_ratio_lteq, "PEG <=" %>
+      <%= f.text_field :peg_ratio_lteq, :size => 6 %>
+      <%= f.label :price_to_sales_ttm_lteq, "P/S <=" %>
+      <%= f.text_field :price_to_sales_ttm_lteq, :size => 6 %>
+      <%= f.label :price_to_book_mrq_lteq, "P/B <=" %>
+      <%= f.text_field :price_to_book_mrq_lteq, :size => 6 %>
+      <%= f.label :earnings_per_share_lteq, "EPS <=" %>
+      <%= f.text_field :earnings_per_share_lteq, :size => 6 %>
+    </div>
+
+    <div class="actions"><%= f.submit "Search" %>
+    <%= link_to "Clear Search", request.path, class: "cancel-button" %>
+  </div>
+  <% end %>
+
   <body> 
-    <%= will_paginate @stocks %>
       <table id="stocks" class="table table-condensed">
         <thead>
           <tr>

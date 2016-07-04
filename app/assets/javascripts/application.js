@@ -12,5 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.dataTables.min
+//= require stocks_table_display
 //= require bootstrap-sprockets
 //= require_tree .
