@@ -1,65 +1,99 @@
 class PortfoliosController < ApplicationController
   before_action :set_portfolio, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
+  autocomplete :stock, :symbol
+  respond_to :html, :js
 
   def index
-    @portfolios = Portfolio.all
-  end
-
-  def new
-    @portfolio = Portfolio.new
-  end
-
-  def create
-    @portfolio = Portfolio.new(portfolio_params)
-
-    if @portfolio.save
-      flash[:notice] = "Portfolio has been created."
-      redirect_to @portfolio
-    else
-      flash.now[:alert] = "Portfolio has not been created."
-      render "new"
-    end
+    @portfolios = current_user.portfolios.order('created_at desc')
   end
 
   def show
-    @portfolio = Portfolio.find(params[:id])
+    @portfolios = current_user.portfolios.where.not(id: params[:id]).order('created_at desc')
+    @holdings = @portfolio.holdings.select(:stock_id).
+      select(@portfolio.holdings.arel_table[:amount].sum.as("total_sum")).select(%q{sum(case when position = 'Buy' then amount else 0 end) as sum_buy}).select(%q{sum(case when position = 'Sell' then amount else 0 end) as sum_sell}).group(:stock_id)
+  end
+
+  def new
+    @portfolio = current_user.portfolios.new
+    @portfolio.holdings.build
   end
 
   def edit
-    @portfolio = Portfolio.find(params[:id])
+    @portfolio = current_user.portfolios.find(params[:id])
+    @portfolio.holdings.build
+  end
+
+  def create
+    @portfolio = current_user.portfolios.new(portfolio_params)
+
+    respond_to do |format|
+      if @portfolio.save
+        format.js
+        format.html { redirect_to @portfolio, notice: 'Portfolio was successfully created.' }
+        format.html { render :show, status: :created, location: @portfolio }
+      else
+        format.html { render :new }
+        format.json { render json: @portfolio.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   def update
-    @portfolio = Portfolio.find(params[:id])
-    
-    if @portfolio.update(portfolio_params)
-      flash[:notice] = "Portfolio has been updated."
-      redirect_to @portfolio
-    else
-      flash.now[:alert] = "Portfolio has not been updated."
-      render "edit"
+    respond_to do |format|
+      if @portfolio.update(portfolio_params)
+        format.html { redirect_to @portfolio, notice: 'Portfolio was successfully updated.' }
+      else
+        format.html { render :edit }
+        format.json { render json: @portfolio.errors, status: :unprocessable_entity }
+      end
     end
   end
 
   def destroy
-    @portfolio = Portfolio.find(params[:id])
     @portfolio.destroy
+    respond_to do |format|
+      format.html { redirect_to portfolios_url, notice: 'Portfolio was successfully destroyed.' }
+      format.json { head :no_content }
+    end
+  end
 
-    flash[:notice] = "Portfolio has been deleted."
-    redirect_to portfolios_path
+  def basic
+    @portfolio = current_user.portfolios.find(params[:id])
+    @holdings = @portfolio.holdings.select(:stock_id).
+      select(@portfolio.holdings.arel_table[:amount].sum.as("total_sum")).select(%q{sum(case when position = 'Buy' then amount else 0 end) as sum_buy}).select(%q{sum(case when position = 'Sell' then amount else 0 end) as sum_sell}).group(:stock_id)
+    respond_to do |format|
+      format.html
+      format.js
+    end
+  end
+
+  def transactions
+    @portfolio = current_user.portfolios.find(params[:id])
+    @holdings = @portfolio.holdings.order('created_at desc')
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def detailed
+    @portfolio = current_user.portfolios.find(params[:id])
+    @holdings = @portfolio.holdings.order('created_at desc')
+    respond_to do |format|
+      format.js
+    end
   end
 
   private
 
-  def portfolio_params
-    params.require(:portfolio).permit(:name)
-  end
-
   def set_portfolio
-    @portfolio = Portfolio.find(params[:id])
-  rescue ActiveRecord::RecordNotFound
-    flash[:alert] = "The portfolio you were looking for could not be found."
-    redirect_to portfolios_path
+    unless @portfolio = current_user.portfolios.where(id: params[:id]).first
+      flash[:alert] = 'Portfolio not found.'
+      redirect_to root_url
+    end
   end
 
+  def portfolio_params
+    params.require(:portfolio).permit(:user_id, :name, holdings_attributes: [:id, :stock, :amount, :stock_id, :user_id, :date_purchased, :trade_price])
+  end
 end

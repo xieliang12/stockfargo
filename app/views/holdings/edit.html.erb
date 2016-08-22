@@ -1,0 +1,15 @@
+<h2>Editing Holding: <%= @holding.stock.symbol %></h2>
+<%= simple_form_for [@portfolio, @holding] do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :amount %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+
+<% end %>
+<%= link_to 'Show', portfolio_holding_path(@portfolio, @holding) %>
+<%= link_to 'Back to Holdings', portfolio_holdings_path(@portfolio) %>

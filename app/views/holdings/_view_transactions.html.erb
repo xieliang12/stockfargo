@@ -1,0 +1,37 @@
+<div id="removable">
+  <table class="table table-hover table-condensed" id="example">
+    <thead>
+      <tr>
+        <th>Ticker</th>
+        <th>Company</th>
+        <th>Amount</th>
+        <th>Position</th>
+        <th>Date</th>
+        <th>Traded Price</th>
+        <th>Current Price</th>
+        <th>Value</th>
+      </tr>
+    </thead>
+
+    <tbody id="holdings">
+      <% @holdings.each do |holdings| %>
+        <% amount = holdings.amount %>
+        <% data = YahooFinance.quotes(["{holdings.stock.symbol}"], [:last_trade_price, :name]) %>
+        <% price = data[0].last_trade_price %>
+        <% name = data[0].name %>
+        <% value = amount.to_f * price.to_f %>
+
+        <tr id="holding_<%= holdings.id %>">
+          <td><%= link_to holdings.stock.symbol, holdings.stock %></td>
+          <td><%= name %></td>
+          <td><%= amount %></td>
+          <td><%= holdings.position %></td>
+          <td><%= holdings.date_purchased.strftime("%b %d, %Y") unless holdings.date_purchased.nil? %></td>
+          <td><%= number_to_currency(holdings.trade_price)%></td>
+          <td><%= number_to_currency(price) %></td>
+          <td><%= number_to_currency(value) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

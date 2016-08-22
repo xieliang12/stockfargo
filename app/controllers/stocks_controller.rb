@@ -10,6 +10,12 @@ class StocksController < ApplicationController
   def show
     @stock = Stock.find(params[:id])
   end
+
+  private
+
+  def stock_params
+    params.require(:stock).permit(:symbol)
+  end
 end
   
 #  def index

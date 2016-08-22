@@ -28,6 +28,10 @@ gem 'font-awesome-rails', '~> 4.6.3'
 gem 'simple_form', '~> 3.2.1'
 gem 'devise', '~> 4.1.1'
 gem 'ransack', '~> 1.7'
+gem 'rails-jquery-autocomplete'
+gem 'jquery-ui-rails'
+gem 'yahoo-finance'
+gem 'bootstrap-datepicker-rails'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

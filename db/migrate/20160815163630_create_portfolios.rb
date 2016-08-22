@@ -1,13 +1,11 @@
 class CreatePortfolios < ActiveRecord::Migration
-  def up
+  def change
     create_table :portfolios do |t|
       t.string :name
+      t.integer :user_id
+      t.integer :holding_id
 
       t.timestamps null: false
     end
-  end
-
-  def down
-    drop_table :portfolios
   end
 end

@@ -1,5 +1,6 @@
-<header>
-  <h1>Edit Portfolio</h1>
-</header>
+<h1>Editing Portfolio</h1>
 
-<%= render "form", portfolio: @portfolio %>
+<%= render 'form' %>
+
+<%= link_to 'Show', @portfolio %> |
+<%= link_to 'Back', portfolios_path %>

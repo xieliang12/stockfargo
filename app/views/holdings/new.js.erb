@@ -1,0 +1,15 @@
+$('#new_holding_link').hide().after('<%= j render("form") %>');
+$("#holding_stock_id").focus();
+$("#myButton").click(function() {
+  var $btn = $(this);
+  $btn.button('loading');
+  // simulating a timeout
+  setTimeout(function () {
+    $btn.button('reset');
+  }, 2000);
+});
+$(".cancel-btn").click(function(evt) {
+  $('#new_holding_link').show();
+  evt.preventDefault();
+  return $(this).closest("#new_holding").hide();
+});

@@ -1,0 +1,17 @@
+<h1>Listing Holding</h1>
+
+<p>
+  <strong>Stock:</strong>
+  <%= @holding.stock.symbol %>
+</p>
+
+<p>
+  <strong>Amount of Shares:</strong>
+  <%= @holding.amount %>
+</p>
+
+<%= link_to 'Edit', edit_portfolio_holding_path(@portfolio, @holding) %> |
+<%= link_to 'Back to Portfolio', portfolio_path(@portfolio) %> |
+<%= link_to 'Add/Edit Holdings', portfolio_edit_all_path(@portfolio) %>
+
+

@@ -1,14 +1,24 @@
-<header>
-  <h1>Portfolios</h1>
+<p id="notice"><%= notice %></p>
 
-  <ul class="actions">
-    <li><%= link_to "Create New Portfolio", new_portfolio_path,
-      class: "new" %></li>
-    </ul>
-  </header>
+<h3>Your Portfolio</h3>
 
-<div id="portfolios">
-  <% @portfolios.each do |portfolio| %>
-    <h2><%= link_to portfolio.name, portfolio %></h2>
-  <% end %>
-</div>
+<%= link_to new_portfolio_path, remote: true, :id => "new_portfolio_link" do %>
+  <button type="button" class="btn btn-default">New Portfolio</button>
+<% end %>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody id="portfolios">
+    <% @portfolios.each do |portfolio| %>
+      <%= render "portfolio", :portfolio => portfolio %>
+    <% end %>
+  </tbody>
+</table>
+
+<br>

@@ -1,0 +1,29 @@
+<h2>Holdings</h2>
+
+<%= link_to 'Add/Edit Holdings', portfolio_edit_all_path(@portfolio), :class => "btn btn-default" %>
+<%= link_to 'View Portfolio', portfolio_path(@portfolio), :class => "btn btn-default" %>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Stock</th>
+      <th>Portfolio</th>
+      <th>Amount of Shares</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @holdings.each do |holding| %>
+      <%= render "holding", :holding => holding %>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Holding', new_portfolio_holding_path(@portfolio) %> |
+<%= link_to 'Back to Portfolio', portfolio_path(@portfolio) %> |
+<%= link_to 'Add/Edit', portfolio_edit_all_path(@portfolio) %>
+
+<br><br>

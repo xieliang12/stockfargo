@@ -1,0 +1,27 @@
+<script>
+  $('.datepicker').datepicker({format: 'yyyy-mm-dd'})
+</script>
+
+<%= simple_form_for [@portfolio, @holding], wrapper: :inline_form,
+html: { class: 'form-inline' }, :remote => request.xhr? do |f| %>
+<%= f.error_notification %>
+
+<div class="form-inputs">
+  <%= f.aasociation :stock, :url => autocomplete_stock_name_portfolio_holdings_path, :as => :autocomplete, :update_elements => {:id => "#stock_id"}, placeholder: 'Ticker' %>
+  <%= f.hidden_field :stock_id, :id => "stock_id" %>
+  <%= f.input :position, collection: [ "Buy", "Sell" ], include_blank: false %>
+  <%= f.input :date_purchased, placeholder: 'Date Purchased', :id => "datepicker", :value => Date.today, :as => :string, input_html: { class: "datepicker" } %>
+  <%= f.input :amount, placeholder: 'Amount' %>
+  <div class="input-group">
+    <span class="input-group-addon">$</span>
+    <%= f.input :trade_price, placeholder: 'Price ' %>
+  </div>
+</div>
+
+<p> </p>
+<div class="form-actions">
+  <%= f.button :button, "Add Stock".html_safe, "data-loading-text": 'Loading', id: 'myButton', class: 'btn-success' %>
+  <button id="new-cancel-btn" class="btn btn-default cancel-btn">Cancel</button>
+</div>
+<p> </p>
+<% end %>

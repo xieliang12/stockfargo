@@ -9,10 +9,19 @@ Rails.application.routes.draw do
 
   #resources :screener
   #get '/screener'
+  resources :portfolios do
+    get 'holdings/all/edit' => 'holdings#edit_all', :as => :edit_all
+    match 'holdings/all' => 'holdings#update_all', :as => :update_all, :via => :put
+    member do
+      get 'basic'
+      get 'transactions'
+    end
+    resources :transactions
+    resources :holdings do
+      get :autocomplete_stock_symbol, :on => :collection
+    end
+  end
 
-  resources :portfolios
-  get '/portfolios' => 'portfolios#index'
-  
   resources :stocks
   get '/stocks' => 'stocks#index'
   get '/stocks/:id' => 'stocks#show'
