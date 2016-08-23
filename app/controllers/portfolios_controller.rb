@@ -11,7 +11,7 @@ class PortfoliosController < ApplicationController
   def show
     @portfolios = current_user.portfolios.where.not(id: params[:id]).order('created_at desc')
     @holdings = @portfolio.holdings.select(:stock_id).
-      select(@portfolio.holdings.arel_table[:amount].sum.as("total_sum")).select(%q{sum(case when position = 'Buy' then amount else 0 end) as sum_buy}).select(%q{sum(case when position = 'Sell' then amount else 0 end) as sum_sell}).group(:stock_id)
+      select(@portfolio.holdings.arel_table[:amount].sum.as("total_sum")).select(%q{sum(case when position = 'Buy' then amount else 0 end) as sum_buy}).select(%q{sum(case when position = 'Sell' then amount else 0 end) as sum_sell}).select(%q{sum(case when position = 'Buy' then amount*trade_price else 0 end) as total_buy}).select(%q{sum(case when position = 'Sell' then amount*trade_price else 0 end) as total_sell}).group(:stock_id)
   end
 
   def new
@@ -61,7 +61,7 @@ class PortfoliosController < ApplicationController
   def basic
     @portfolio = current_user.portfolios.find(params[:id])
     @holdings = @portfolio.holdings.select(:stock_id).
-      select(@portfolio.holdings.arel_table[:amount].sum.as("total_sum")).select(%q{sum(case when position = 'Buy' then amount else 0 end) as sum_buy}).select(%q{sum(case when position = 'Sell' then amount else 0 end) as sum_sell}).group(:stock_id)
+      select(@portfolio.holdings.arel_table[:amount].sum.as("total_sum")).select(%q{sum(case when position = 'Buy' then amount else 0 end) as sum_buy}).select(%q{sum(case when position = 'Sell' then amount else 0 end) as sum_sell}).select(%q{sum(case when position = 'Buy' then amount*trade_price else 0 end) as total_buy}).select(%q{sum(case when position = 'Sell' then amount*trade_price else 0 end) as total_sell}).group(:stock_id)
     respond_to do |format|
       format.html
       format.js

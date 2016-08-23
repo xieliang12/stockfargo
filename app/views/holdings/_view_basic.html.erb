@@ -6,23 +6,26 @@
         <th>Ticker</th>
         <th>Company</th>
         <th>Amount</th>
-        <th>Current Price</th>
+        <th>Market Price</th>
+        <th>Paid Price</th>
+        <th>Market Value</th>
+        <th>Money Paid</th>
         <th>Change</th>
         <th>Change %</th>
-        <th>Value</th>
       </tr>
     </thead>
 
     <tbody id="holdings">
       <% @holdings.each do |holdings| %>
         <% amount = (holdings.sum_buy - holdings.sum_sell) %>
-        <% yahoo_client = YahooFinance::Client.new %>
-        <% data = yahoo_client.quotes(["#{holdings.stock.symbol}"], [:last_trade_price, :change, :change_in_percent, :name]) %>
+        <% paid_price = (holdings.total_buy - holdings.total_sell)/amount %>
+        <% data = YahooFinance::Client.new.quotes(["#{holdings.stock.symbol}"], [:last_trade_price, :name]) %>
         <% price = data[0].last_trade_price %>
-        <% change = data[0].change %>
-        <% percent_change = data[0].change_in_percent %>
         <% name = data[0].name %>
         <% value = amount.to_f * price.to_f %>
+        <% total_paid = amount.to_f * paid_price.to_f %>
+        <% change = value - total_paid %>
+        <% change_percent = change*100/total_paid.to_f %>
         <% total_value += value %>
 
         <tr id="holding_<%= holdings.id %>">
@@ -30,9 +33,11 @@
           <td><%= name %></td>
           <td><%= amount %></td>
           <td><%= number_to_currency(price) %></td>
-          <td class = "currency"><%= change %></td>
-          <td class = "currency"><%= percent_change %>
+          <td><%= number_to_currency(paid_price) %></td>
           <td><%= number_to_currency(value) %></td>
+          <td><%= number_to_currency(total_paid) %></td>
+          <td><%= number_to_currency(change) %></td>
+          <td><%= number_to_percentage(change_percent) %></td>
         </tr>
       <% end %>
     </tbody>

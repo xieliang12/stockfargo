@@ -16,7 +16,7 @@
     <tbody id="holdings">
       <% @holdings.each do |holdings| %>
         <% amount = holdings.amount %>
-        <% data = YahooFinance.quotes(["{holdings.stock.symbol}"], [:last_trade_price, :name]) %>
+        <% data = YahooFinance::Client.new.quotes(["#{holdings.stock.symbol}"], [:last_trade_price, :name]) %>
         <% price = data[0].last_trade_price %>
         <% name = data[0].name %>
         <% value = amount.to_f * price.to_f %>
