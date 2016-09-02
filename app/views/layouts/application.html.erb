@@ -9,51 +9,58 @@
 </head>
 <body>
 
-<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+<nav class="navbar navbar-default navbar-fixed-top navbar-inverse">
 <div class="container">
   <div class="navbar-header">
-    <%= link_to "StockFargo", root_path, class: "navbar-brand" %>
-    <button type="button" class="navbar-toggle collapsed"
-      data-toggle="collapse" data-target="#collapse">
+    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapse" aria-expanded="false">
       <span class="sr-only">Toggle navigation</span>
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
     </button>
+    <%= link_to "StockFargo", root_path, class: "navbar-brand" %>
   </div>
 
   <div class="collapse navbar-collapse" id="collapse">
-    <ul class="nav navbar-nav">
+    <ul class="nav navbar-nav navbar-right">
       <li class="<%= "active" if current_page?("/") %>">
-      <%= link_to "Home", root_path %>
-      </li>
+      <%= link_to "Home", root_path %></li>
       <li class="<%= "active" if current_page?("/stocks") %>">
-      <%= link_to "Stock Screener", stocks_path %>
-      </li>
-      <li class="<%= "active" if current_page?("/portfolios") %>">
-      <%= link_to "Portfolios", portfolios_path %>
-      </li>
-      <% unless user_signed_in? %>
-      <li class="<%= "active" if current_page?("/users/sign_up") %>">
-      <%= link_to "Sign up", new_user_registration_path %>
-      </li>
-      <li class="<%= "active" if current_page?("/users/sign_in") %>">
-      <%= link_to "Sign in", new_user_session_path %>
-      </li>
-    <% end %>
-    </ul>
+      <%= link_to "Stock Screener", stocks_path %></li>
       <% if user_signed_in? %>
-        <div class="navbar-right">
-          <p class="navbar-text">
-          Signed in as <%= current_user.email %>
-          </p>
-          <ul class="nav navbar-nav">
-            <li><%= link_to "Sign out", destroy_user_session_path,
-              method: :delete %>
-            </li>
-          </ul>
-      </div>
+        <li class="<%= "active" if current_page?("/portfolios") %>">
+        <%= link_to "Portfolios", portfolios_path %></li>
+      <% else %>
+        <li class="<%= "active" if current_page?("/users/sign_up") %>">
+        <%= link_to "Sign in", new_user_session_path %></li>
+        <li class="<%= "active" if current_page?("/users/sign_in") %>">
+        <%= link_to "Sign up", new_user_registration_path %></li>
       <% end %>
+
+    <% if user_signed_in? %>
+      <div class="navbar-right">
+        <p class="navbar-text">
+        Signed in as <%= current_user.email %>
+        </p>
+        <ul class="nav navbar-nav">
+          <li><%= link_to "Sign out", destroy_user_session_path,
+            method: :delete %>
+          </li>
+        </ul>
+      </div>
+    <% end %>
+    <% if user_signed_in? %>
+      <% if current_user.admin? %>
+        <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><%= link_to 'Dashboard', '/admin' %></li>
+          <li><%= link_to 'Users', users_path %></li>
+        </ul>
+        </li>
+      <% end %>
+    <% end %>
+  </ul>
   </div>
 </div>
 </nav>
