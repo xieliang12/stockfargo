@@ -38,6 +38,7 @@
       <% end %>
 
     <% if user_signed_in? %>
+      <li><%= link_to 'Favorites', favorites_path %></li>
       <div class="navbar-right">
         <p class="navbar-text">
         Signed in as <%= current_user.email %>

@@ -1,0 +1,13 @@
+<%= simple_form_for(@favorite) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.association :stock, :url => autocomplete_stock_symbol_favorites_path, :as => :autocomplete, :update_elements => {:id => "#stock_id"}, placeholder: 'Ticker' %>
+    <%= f.hidden_field :stock_id, :id => "stock_id" %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+
+<% end %>
