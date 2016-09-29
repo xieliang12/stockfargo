@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   has_many :favorites
   has_many :portfolios
-  has_many :comments
+  has_many :posts
 
   def set_default_role
     self.role ||= :user

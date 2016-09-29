@@ -1,8 +1,9 @@
 <header>
-  <h3>New Comment</h3>
+  <h3>New Post</h3>
   </header>
 
-<%= simple_form_for [favorite, comment] do |f| %>
+<%= simple_form_for [favorite, post] do |f| %>
+  <%= f.input :title %>
   <%= f.input :text %>
   <%= f.submit class: "btn btn-primary" %>
 <% end %>

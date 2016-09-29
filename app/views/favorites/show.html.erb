@@ -5,14 +5,13 @@
   <%= @favorite.stock.symbol %>
 </p>
 
-<div id="comments">
-  <% if @favorite.comments.persisted.any? %>
-    <%= render @favorite.comments.persisted %>
+<div id="posts">
+  <% if @favorite.posts.persisted.any? %>
+    <%= render @favorite.posts.persisted %>
   <% else %>
-    <p>There are no comments for this favorite.</p>
+    <p>There are no posts for this favorite.</p>
   <% end %>
 </div>
 
-<%= render "comments/form", favorite: @favorite, comment: @comment %>
-<%= link_to 'Edit', edit_favorite_path(@favorite) %> |
+<%= render "posts/form", favorite: @favorite, post: @post %>
 <%= link_to 'Back', favorites_path %>

@@ -8,7 +8,7 @@ class FavoritesController < ApplicationController
   end
 
   def show
-    @comment = @favorite.comments.build
+    @post = @favorite.posts.build
   end
 
   def new

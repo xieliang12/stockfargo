@@ -1,0 +1,7 @@
+<blockquote class="post">
+  <%= simple_format(post.text) %>
+  <footer>
+  <%= post.created_at %><p> Author: </p><cite><%= post.author.email %></cite>
+  </footer>
+  <%= link_to 'Destroy', favorite_post_path(post.favorite, post), method: :delete, data: { confirm: 'Do you really want to delete this post?' } %>
+</blockquote>

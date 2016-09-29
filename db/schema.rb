@@ -11,21 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160922233543) do
+ActiveRecord::Schema.define(version: 20160929210252) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "comments", force: :cascade do |t|
-    t.text     "text"
-    t.integer  "favorite_id"
-    t.integer  "author_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
-  add_index "comments", ["author_id"], name: "index_comments_on_author_id", using: :btree
-  add_index "comments", ["favorite_id"], name: "index_comments_on_favorite_id", using: :btree
 
   create_table "favorites", force: :cascade do |t|
     t.integer  "user_id"
@@ -51,6 +40,18 @@ ActiveRecord::Schema.define(version: 20160922233543) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "posts", force: :cascade do |t|
+    t.text     "text"
+    t.integer  "favorite_id"
+    t.integer  "author_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.string   "title"
+  end
+
+  add_index "posts", ["author_id"], name: "index_posts_on_author_id", using: :btree
+  add_index "posts", ["favorite_id"], name: "index_posts_on_favorite_id", using: :btree
 
   create_table "stocks", force: :cascade do |t|
     t.string   "symbol",                                                              null: false
@@ -158,6 +159,6 @@ ActiveRecord::Schema.define(version: 20160922233543) do
     t.text    "company_name"
   end
 
-  add_foreign_key "comments", "favorites"
-  add_foreign_key "comments", "users", column: "author_id"
+  add_foreign_key "posts", "favorites"
+  add_foreign_key "posts", "users", column: "author_id"
 end
