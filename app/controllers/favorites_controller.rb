@@ -8,6 +8,7 @@ class FavoritesController < ApplicationController
   end
 
   def show
+    @comment = @favorite.comments.build
   end
 
   def new

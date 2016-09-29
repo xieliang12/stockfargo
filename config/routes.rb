@@ -25,8 +25,9 @@ Rails.application.routes.draw do
 
   resources :favorites do
     get :autocomplete_stock_symbol, :on => :collection
+    resources :comments, only: [:create]
   end
-
+  
   resources :stocks
   get '/stocks' => 'stocks#index'
   get '/stocks/:id' => 'stocks#show'
