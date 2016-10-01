@@ -2,6 +2,11 @@ class PostsController < ApplicationController
   before_action :set_favorite, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
 
+  def index
+    @favorite = current_user.favorites.find(params[:id])
+    @posts = @favorite.posts.all
+  end
+
   def create
     @favorite = current_user.favorites.find(params[:favorite_id])
     @post = @favorite.posts.new(post_params)
@@ -34,7 +39,7 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:post).permit(:text).merge(author_id: current_user.id)
+    params.require(:post).permit(:title, :post_type, :text, :sentiment).merge(author_id: current_user.id)
   end
 
 end

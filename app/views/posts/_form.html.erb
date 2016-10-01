@@ -1,9 +1,11 @@
 <header>
   <h3>New Post</h3>
-  </header>
+</header>
 
 <%= simple_form_for [favorite, post] do |f| %>
   <%= f.input :title %>
+  <%= f.input :post_type %>
   <%= f.input :text %>
+  <%= f.input :sentiment %>
   <%= f.submit class: "btn btn-primary" %>
 <% end %>
