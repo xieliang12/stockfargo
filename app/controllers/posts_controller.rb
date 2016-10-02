@@ -3,7 +3,6 @@ class PostsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @favorite = current_user.favorites.find(params[:id])
     @posts = @favorite.posts.all
   end
 
@@ -20,6 +19,11 @@ class PostsController < ApplicationController
         format.json { render json: @post.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def show
+    @favorite = current_user.favorites.find(params[:favorite_id])
+    @post = @favorite.posts.find(params[:id])
   end
 
   def destroy
@@ -39,7 +43,7 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:post).permit(:title, :post_type, :text, :sentiment).merge(author_id: current_user.id)
+    params.require(:post).permit(:id, :title, :post_type, :text, :sentiment).merge(author_id: current_user.id)
   end
 
 end

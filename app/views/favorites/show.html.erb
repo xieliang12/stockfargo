@@ -22,7 +22,11 @@
         <% @favorite.posts.each do |post| %>
           <tr>
             <td><%= post.id %></td>
-            <td><%= post.title %></td>
+            <td class="blue">
+              <%= link_to [@favorite, post] do %>
+                <%= post.title %>
+              <% end %>
+            </td>
             <td><%= post.post_type %></td>
             <td><%= post.sentiment %></td>
             <td><%= post.author.email unless post.author.nil? %></td>

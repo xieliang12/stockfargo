@@ -19,8 +19,8 @@
       <tr id="favorite_<%= favorite.id %>">
         <td><%= favorite.stock.symbol %></td>
         <td><%= name %></td>
-        <td><%= link_to 'Show', favorite %></td>
-        <td><%= link_to 'Destroy', favorite, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Message Board', favorite %></td>
+        <td><%= link_to 'Delete', favorite, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>

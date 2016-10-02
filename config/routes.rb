@@ -27,6 +27,7 @@ Rails.application.routes.draw do
     get :autocomplete_stock_symbol, :on => :collection
     resources :posts
   end
+  resources :posts
   
   resources :stocks
   get '/stocks' => 'stocks#index'
