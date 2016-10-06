@@ -2,8 +2,8 @@
 
 <p>
   <%= @favorite.stock.symbol%>
-</p>
-
+  </p>
+  
 <div id="posts">
   <% if @favorite.posts.any? %>
     <table class="table table-hover">
@@ -40,5 +40,8 @@
   <% end %>
 </div>
 
-<%= render "posts/form", favorite: @favorite, post: @post %>
-<%= link_to 'Back', favorites_path %>
+<%= button_to "Add Post", new_favorite_post_path(@post.favorite, @post), :class => "button", :method => :get %>
+<div>
+  <%= link_to 'Back', favorites_path %>
+</div>
+    

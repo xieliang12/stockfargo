@@ -29,6 +29,8 @@ Rails.application.routes.draw do
   end
   resources :posts
   
+  get 'tags/:tag', to: 'favorites#index', as: :tag
+
   resources :stocks
   get '/stocks' => 'stocks#index'
   get '/stocks/:id' => 'stocks#show'

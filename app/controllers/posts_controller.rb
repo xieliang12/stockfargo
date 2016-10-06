@@ -6,9 +6,14 @@ class PostsController < ApplicationController
     @posts = @favorite.posts.all
   end
 
+  def new
+    @favorite = Favorite.find_by_id(params[:favorite_id])
+    @post = @favorite.posts.build
+  end
+
   def create
-    @favorite = current_user.favorites.find(params[:favorite_id])
-    @post = @favorite.posts.new(post_params)
+    @favorite = Favorite.find_by_id(params[:favorite_id])
+    @post = @favorite.posts.build(post_params) if @favorite.present?
 
     respond_to do |format|
       if @post.save
@@ -43,7 +48,7 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:post).permit(:id, :title, :post_type, :text, :sentiment).merge(author_id: current_user.id)
+    params.require(:post).permit(:title, :post_type, :text, :sentiment).merge(author_id: current_user.id)
   end
 
 end

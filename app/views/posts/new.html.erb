@@ -2,7 +2,7 @@
   <h3>New Post</h3>
 </header>
 
-<%= simple_form_for [favorite, post] do |f| %>
+<%= simple_form_for [@favorite, @post] do |f| %>
   <%= f.input :title %>
   <%= f.input :post_type %>
   <%= f.input :text %>

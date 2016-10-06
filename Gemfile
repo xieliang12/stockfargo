@@ -33,6 +33,7 @@ gem 'jquery-ui-rails'
 gem 'yahoo-finance'
 gem 'bootstrap-datepicker-rails'
 gem 'upmin-admin'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

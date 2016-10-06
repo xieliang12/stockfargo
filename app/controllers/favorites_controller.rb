@@ -4,7 +4,11 @@ class FavoritesController < ApplicationController
   autocomplete :stock, :symbol, { :display_value => 'symbol_with_name', :full_model => true }
 
   def index
-    @favorites = current_user.favorites.order('created_at desc')
+    if params[:tag]
+      @favorites = Favorite.tagged_with(params[:tag])
+    else
+      @favorites = Favorite.all.order('created_at desc')
+    end
   end
 
   def show
@@ -39,6 +43,14 @@ class FavoritesController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  #def search
+  #  if params[:search].present?
+  #    @favorite = current_user.favorites.search(params[:search])
+  #  else
+  #    @favorite = current_user.favorites
+  #  end
+  #end
 
   private
 
@@ -50,6 +62,6 @@ class FavoritesController < ApplicationController
   end
 
   def favorite_params
-    params.require(:favorite).permit(:id, :user_id, :stock_id, :symbol)
+    params.require(:favorite).permit(:id, :user_id, :stock_id, :symbol, :tag_list)
   end
 end

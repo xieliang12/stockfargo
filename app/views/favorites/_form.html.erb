@@ -6,8 +6,12 @@
     <%= f.hidden_field :stock_id, :id => "stock_id" %>
   </div>
 
+  <%= f.label :tag_list, 'Tags (separated by commas)' %>
+  <%= f.input :tag_list, as: :string, label: false %>
+
   <div class="form-actions">
     <%= f.button :submit %>
   </div>
 
 <% end %>
+  
