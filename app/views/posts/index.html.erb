@@ -40,8 +40,7 @@
   <% end %>
 </div>
 
-<%= button_to "Add Post", new_favorite_post_path(@post.favorite, @post), :class => "button", :method => :get %>
+<%= button_to "Add Post", new_favorite_post_path(@favorite), :class => "button", :method => :get %>
 <div>
   <%= link_to 'Back', favorites_path %>
 </div>
-    

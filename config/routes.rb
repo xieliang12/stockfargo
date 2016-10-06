@@ -27,7 +27,6 @@ Rails.application.routes.draw do
     get :autocomplete_stock_symbol, :on => :collection
     resources :posts
   end
-  resources :posts
   
   get 'tags/:tag', to: 'favorites#index', as: :tag
 

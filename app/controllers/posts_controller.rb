@@ -3,21 +3,22 @@ class PostsController < ApplicationController
   before_action :authenticate_user!
 
   def index
+    @favorite = current_user.favorites.find(params[:favorite_id])
     @posts = @favorite.posts.all
   end
 
   def new
-    @favorite = Favorite.find_by_id(params[:favorite_id])
+    @favorite = current_user.favorites.find(params[:favorite_id])
     @post = @favorite.posts.build
   end
 
   def create
     @favorite = Favorite.find_by_id(params[:favorite_id])
-    @post = @favorite.posts.build(post_params) if @favorite.present?
+    @post = @favorite.posts.build(post_params)
 
     respond_to do |format|
       if @post.save
-        format.html { redirect_to favorite_path(@favorite), notice: "the post was successfully created." }
+        format.html { render action: "index", notice: "the post was successfully created." }
         format.json { render :show, status: :created, location: @post }
       else
         format.html { render :new }
@@ -48,7 +49,7 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:post).permit(:title, :post_type, :text, :sentiment).merge(author_id: current_user.id)
+    params.require(:post).permit(:title, :post_type, :text, :sentiment, :favorite_id).merge(author_id: current_user.id)
   end
 
 end
