@@ -19,7 +19,12 @@
       <tr id="favorite_<%= favorite.id %>">
         <td><%= favorite.stock.symbol %></td>
         <td><%= name %></td>
-        <td><%= raw tag_links(favorite.tag_list) %></td>
+        <% if favorite.tag_list.any? %>
+          <td class="tag"><% tag_links(favorite.tag_list).each do |tf| %>
+            <span style="background-color:#428bca"><%= raw tf %></span>
+          <% end %>
+        </td>
+      <% end %>
         <td><%= link_to 'Message Board', favorite %></td>
         <td><%= link_to 'Delete', favorite, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>

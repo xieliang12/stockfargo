@@ -3,18 +3,11 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .tag {
-  @extend .state;
-  @extend .label-info;
-  margin-right: 10px;
+  font-size: 18px;
+  padding: 5px 5px 5px 5px;
 
   a {
     color: white;
-
-    &.remove {
-      font-family: "FontAwesome";
-      @extend .fa-close;
-      margin-right: 0.5em;
-      text-decoration: none;
-    }
+    font-family: "FontAwesome";
   }
-}
+}  
