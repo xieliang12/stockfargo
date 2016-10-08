@@ -1,11 +1,12 @@
-<h2>
-  <%= @favorite.stock.symbol %> / <%= "Message Board" %> / <%= "Read Mesaage" %>
-</h2>
 <h3>
-  <%= post = @post.title %>
+  <%= @favorite.stock.symbol %> / <%= "Message Board" %> / <%= "Read Mesaage" %>
 </h3>
+<h4>
+  <%= post = @post.title %>
+</h4>
 <p>
   <%= @post.text %>
 </p>
 
+<%= link_to 'Delete Post', favorite_post_path, method: :delete, data: { confirm: "Are you sure to delete this post?" } %>
 <%= link_to 'Back', favorite_posts_path(@post.favorite) %>

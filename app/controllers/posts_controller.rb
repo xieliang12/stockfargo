@@ -1,19 +1,16 @@
 class PostsController < ApplicationController
-  before_action :set_favorite, only: [:show, :edit, :update, :destroy]
+  before_action :set_favorite
   before_action :authenticate_user!
 
   def index
-    @favorite = current_user.favorites.find(params[:favorite_id])
     @posts = @favorite.posts.all
   end
 
   def new
-    @favorite = current_user.favorites.find(params[:favorite_id])
     @post = @favorite.posts.build
   end
 
   def create
-    @favorite = Favorite.find_by_id(params[:favorite_id])
     @post = @favorite.posts.build(post_params)
 
     respond_to do |format|
@@ -28,16 +25,17 @@ class PostsController < ApplicationController
   end
 
   def show
-    @favorite = current_user.favorites.find(params[:favorite_id])
     @post = @favorite.posts.find(params[:id])
   end
 
   def destroy
-    @post = @favorite.posts.find(params[:id])
-    @post.destroy
+    @post = Post.find(params[:id])
+    if @post.present?
+      @post.destroy
+    end
 
     respond_to do |format|
-      format.html { redirect_to @favorite }
+      format.html { redirect_to favorite_posts_path }
       format.js
     end
   end
@@ -45,11 +43,12 @@ class PostsController < ApplicationController
   private
 
   def set_favorite
-    @favorite = Favorite.find(params[:favorite_id])
+    @user = current_user
+    @favorite = @user.favorites.find(params[:favorite_id])
   end
 
   def post_params
-    params.require(:post).permit(:title, :post_type, :text, :sentiment, :favorite_id).merge(author_id: current_user.id)
+    params.require(:post).permit(:title, :post_type, :text, :sentiment).merge(author_id: current_user.id)
   end
 
 end

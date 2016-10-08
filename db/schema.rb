@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161005232909) do
+ActiveRecord::Schema.define(version: 20161007232842) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,6 +59,21 @@ ActiveRecord::Schema.define(version: 20161005232909) do
 
   add_index "posts", ["author_id"], name: "index_posts_on_author_id", using: :btree
   add_index "posts", ["favorite_id"], name: "index_posts_on_favorite_id", using: :btree
+
+  create_table "researches", force: :cascade do |t|
+    t.string   "title"
+    t.integer  "favorite_id"
+    t.integer  "user_id"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.string   "attach_file_name"
+    t.string   "attach_content_type"
+    t.integer  "attach_file_size"
+    t.datetime "attach_updated_at"
+  end
+
+  add_index "researches", ["favorite_id"], name: "index_researches_on_favorite_id", using: :btree
+  add_index "researches", ["user_id"], name: "index_researches_on_user_id", using: :btree
 
   create_table "stocks", force: :cascade do |t|
     t.string   "symbol",                                                              null: false
@@ -172,4 +187,6 @@ ActiveRecord::Schema.define(version: 20161005232909) do
 
   add_foreign_key "posts", "favorites"
   add_foreign_key "posts", "users", column: "author_id"
+  add_foreign_key "researches", "favorites"
+  add_foreign_key "researches", "users"
 end

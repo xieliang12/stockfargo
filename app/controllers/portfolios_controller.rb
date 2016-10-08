@@ -31,7 +31,7 @@ class PortfoliosController < ApplicationController
       if @portfolio.save
         format.js
         format.html { redirect_to @portfolio, notice: 'Portfolio was successfully created.' }
-        format.html { render :show, status: :created, location: @portfolio }
+        format.json { render :show, status: :created, location: @portfolio }
       else
         format.html { render :new }
         format.json { render json: @portfolio.errors, status: :unprocessable_entity }

@@ -1,8 +1,6 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <%= @favorite.stock.symbol%>
-  </p>
+<h3>
+  <%= @favorite.stock.symbol %> / <%= "Message Board" %> / <%= "Read Mesaage" %>
+</h3>
   
 <div id="posts">
   <% if @favorite.posts.any? %>
@@ -44,3 +42,4 @@
 <div>
   <%= link_to 'Back', favorites_path %>
 </div>
+

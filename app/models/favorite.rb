@@ -2,6 +2,8 @@ class Favorite < ActiveRecord::Base
   belongs_to :stock
   belongs_to :user
   has_many :posts
+  has_many :researches
+  has_many :attachs, dependent: :destroy
   has_and_belongs_to_many :tags, uniq: true
 
   validates :user_id, presence: true
@@ -16,8 +18,9 @@ class Favorite < ActiveRecord::Base
   end
 
   def tag_list=(names)
-    names.split(",").each do |name|
-      self.tags << Tag.find_or_initialize_by(name: name)
+    @tag_list = names
+    self.tags = names.split(",").map do |n|
+      Tag.where(name: n.strip).first_or_create!
     end
   end
 end

@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   has_many :favorites
   has_many :portfolios
   has_many :posts
+  has_many :researches
 
   def set_default_role
     self.role ||= :user

@@ -1,0 +1,17 @@
+<h3>
+  <%= @favorite.stock.symbol %> <%= "Research Page" %>
+</h3>
+
+<% @favorite.researches.each do |research| %>
+  <ul>
+    <% if research.attach_content_type == 'application/pdf' %>
+      <li><%= research.title %></li>
+      <iframe src=<%= research.attach.url %> width="800px" height="600px" frameborder="0"></iframe>
+    <% else %>
+      <%= image_tag(research.attach.url) %>
+    <% end %>
+    <%= link_to 'Delete', favorite_research_path(@favorite, research), method: :delete, data: { confirm: 'Are you sure to delete this attachment?' } %>
+  </ul>
+<% end %>
+
+<%= button_to "Add Research Document", new_favorite_research_path(@favorite), :class => "button", :method => :get %>

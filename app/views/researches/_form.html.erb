@@ -1,0 +1,16 @@
+<%= simple_form_for [@favorite, @research] do |f| %>
+  <% if @research.errors.any? %>
+    <div id="error_explanation">
+      <h3><%= pluralize(@research.errors.count, "error") %> prohibited this research post from being saved:</h3>
+      <ul>
+        <% @research.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.input :title, label: 'Attachement description' %>
+  <%= f.input :attach, as: :file, label: 'Choose a file to upload' %>
+  <%= f.submit 'Upload', class: 'btn btn-primary' %>
+<% end %>
