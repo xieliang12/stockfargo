@@ -39,5 +39,13 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
-  config.paperclip_defaults = { storage: :fog, fog_credentials: { provide: "Local", local_root: "#{Rails.root}/public"}, fog_directory: "", fog_host: "localhost"}
+  config.paperclip_defaults = {
+    :storage => :s3,
+    :s3_region => 'us-west-2',
+    :s3_host_name => 's3-us-west-2.amazonaws.com',
+    :s3_credentials => {
+      :bucket => 'mystocks',
+      :s3_credentials => "#{Rails.root}/config/aws.yml",
+    }
+  }
 end

@@ -4,14 +4,24 @@
 
 <% @favorite.researches.each do |research| %>
   <ul>
-    <% if research.attach_content_type == 'application/pdf' %>
-      <li><%= research.title %></li>
-      <iframe src=<%= research.attach.url %> width="800px" height="600px" frameborder="0"></iframe>
-    <% else %>
-      <%= image_tag(research.attach.url) %>
-    <% end %>
+    <li><p><%= link_to research.attach.url do %>
+      <h4><%= research.title %></h4>
+    <% end %></p></li>
+    <div>
+      <% if research.attach_content_type == "application/pdf" %>
+        <iframe src=<%= research.attach.url %> width="800px" height="600px" frameborder="0"></iframe>
+      <% else %>
+      <%= image_tag(research.attach.url(:original)) %>
+    </div>
+  <% end %>
+  <div>
     <%= link_to 'Delete', favorite_research_path(@favorite, research), method: :delete, data: { confirm: 'Are you sure to delete this attachment?' } %>
+  </div>
   </ul>
 <% end %>
 
+<div>
 <%= button_to "Add Research Document", new_favorite_research_path(@favorite), :class => "button", :method => :get %>
+</div>
+
+<br>

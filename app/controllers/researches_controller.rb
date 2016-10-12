@@ -35,7 +35,8 @@ class ResearchesController < ApplicationController
   private
 
   def set_favorite
-    @favorite = current_user.favorites.find(params[:favorite_id])
+    @user = current_user
+    @favorite = @user.favorites.find(params[:favorite_id])
   end
 
   def research_params
