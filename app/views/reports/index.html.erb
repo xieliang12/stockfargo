@@ -1,0 +1,14 @@
+<h3>Generate a report</h3>
+<div class="input-group" align="center" >
+  <div class="form-inline">
+    <%= form_tag(controller: :reports, action: :index) do %>
+      <%= label_tag "Please input a stock symbol: " %>
+      <%= text_field_tag 'ticker' %>
+      <%= submit_tag "Report", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>
+
+<p>
+  <%= simple_format(@result) %>
+</p>

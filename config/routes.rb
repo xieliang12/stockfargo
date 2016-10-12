@@ -10,6 +10,11 @@ Rails.application.routes.draw do
 
   #resources :screener
   #get '/screener'
+  authenticated :user do
+    root :to => "visitors#authorized_index", :as => "authorized_root"
+  end
+  root to: 'visitors#index'
+  
   resources :portfolios do
     get 'holdings/all/edit' => 'holdings#edit_all', :as => :edit_all
     match 'holdings/all' => 'holdings#update_all', :as => :update_all, :via => :put
@@ -35,10 +40,8 @@ Rails.application.routes.draw do
   get '/stocks' => 'stocks#index'
   get '/stocks/:id' => 'stocks#show'
   
-  authenticated :user do
-    root :to => "visitors#authorized_index", :as => "authorized_root"
+  resources :reports do
+    post 'index' => 'reports#index', :on => :collection
   end
-
-  root to: 'visitors#index'
-
+  
 end
