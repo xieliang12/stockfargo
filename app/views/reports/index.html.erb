@@ -10,5 +10,61 @@
 </div>
 
 <p>
-  <%= simple_format(@result) %>
+<% unless @result.nil? %>
+  <% @result.each do |link| %>
+    <% if link.include? "p=d" %>
+      <p>
+      <h4><%= "Daily Chart" %></h4>
+        <img src=<%= link %>>
+      </p>
+    <% elsif link.include? "p=w" %>
+      <p>
+      <h4><%= "Weekly Chart" %></h4>
+        <img src=<%= link %>>
+      </p>
+    <% elsif link.include? "p=m" %>
+      <p>
+      <h4><%= "Monthly Chart" %></h4>
+        <img src=<%= link %>>
+      </p>
+    <% else %>
+      <p>
+      <h4><%= "Daily Chart, MAs and RSI for One Year Period" %></h4>
+        <img src=<%= link %>>
+      </p>
+    <% end %>
+  <% end %>
+<% end %>
 </p>
+
+<div>
+  <table>
+    <tr>
+    </tr>
+  </table>
+</div>
+
+<%= Gon::Base.render_data %>
+<script>  
+$(document).ready(function () {
+  var json = gon.patents; 
+    var tr;
+    for (var i = 0; i < json.length; i++) {
+      tr = $('<tr/>');
+        tr.append("<td>" + "<a href='" + json[i].link + "'>" + json[i].patent_id + "</a>" + "</td>");
+      $('table').append(tr);
+      tr = $('<tr/>');
+      tr.append("<td>" + json[i].inventor + "</td>");
+      $('table').append(tr);
+      tr = $('<tr/>');
+      tr.append("<td>" + json[i].report_date + "</td>");
+      $('table').append(tr);
+      tr = $('<tr/>');
+      tr.append("<td>" + json[i].title + "</td>");
+      $('table').append(tr);
+      tr = $('<tr/>');
+      tr.append("<td>" + json[i].abstract + "</td>");
+      $('table').append(tr);
+    }
+});
+</script>

@@ -41,7 +41,7 @@ Rails.application.routes.draw do
   get '/stocks/:id' => 'stocks#show'
   
   resources :reports do
-    post 'index' => 'reports#index', :on => :collection
+    post 'results' => 'reports#index', :on => :collection
   end
   
 end
