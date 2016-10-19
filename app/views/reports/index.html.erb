@@ -38,33 +38,21 @@
 </p>
 
 <div>
-  <table>
+  <h4>Patents Information</h4>
+</div>
+<div>
+  <table id="patents" class="table table-striped table-condensed">
+    <tr>
+    </tr>
+  </table>
+</div>
+
+<div>
+  <h4>Publications</h4>
+  <table id="publications" class="table table-striped table-condensed">
     <tr>
     </tr>
   </table>
 </div>
 
 <%= Gon::Base.render_data %>
-<script>  
-$(document).ready(function () {
-  var json = gon.patents; 
-    var tr;
-    for (var i = 0; i < json.length; i++) {
-      tr = $('<tr/>');
-        tr.append("<td>" + "<a href='" + json[i].link + "'>" + json[i].patent_id + "</a>" + "</td>");
-      $('table').append(tr);
-      tr = $('<tr/>');
-      tr.append("<td>" + json[i].inventor + "</td>");
-      $('table').append(tr);
-      tr = $('<tr/>');
-      tr.append("<td>" + json[i].report_date + "</td>");
-      $('table').append(tr);
-      tr = $('<tr/>');
-      tr.append("<td>" + json[i].title + "</td>");
-      $('table').append(tr);
-      tr = $('<tr/>');
-      tr.append("<td>" + json[i].abstract + "</td>");
-      $('table').append(tr);
-    }
-});
-</script>

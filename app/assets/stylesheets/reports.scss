@@ -1,3 +1,38 @@
 // Place all the styles related to the reports controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+#patents {
+  td:first-child {
+  width: 12%;
+  }
+  
+  tr:nth-child(6n-4) {
+  background: #90a4ae;
+  border-top: 3px solid;
+  border-top-color: #90a4ae;
+}
+
+  tr:nth-child(6n+1) {
+    border-top: 3px solid;
+    border-top-color: #90a4ae;
+  }
+}
+
+#publications {
+  td:first-child {
+    width: 12%;
+  }
+
+  tr:nth-child(6n-4) {
+    background: #9ccc65;
+    border-top: 3px solid;
+    border-top-color: #9ccc65;
+  }
+
+  tr:nth-child(6n+1) {
+    border-top: 3px solid;
+    border-top-color: #9ccc65;
+  }
+}
+    
