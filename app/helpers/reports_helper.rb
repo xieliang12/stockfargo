@@ -1,5 +1,5 @@
 module ReportsHelper
-  module Charts
+  module Feature
     class Geturl 
       def self.check_url(url_address)
         begin
