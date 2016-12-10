@@ -4,7 +4,15 @@
     <%= form_tag(controller: :reports, action: :index) do %>
       <%= label_tag "Please input a stock symbol: " %>
       <%= text_field_tag 'ticker' %>
-      <%= submit_tag "Report", class: "btn btn-primary" %>
+        <%= label_tag "Charts: " %>
+        <%= check_box_tag :charts %>
+        <%= label_tag "Patents: " %>
+        <%= check_box_tag :patents %>
+        <%= label_tag "Publications: " %>
+        <%= check_box_tag :publications %>
+        <%= label_tag "Clinicals: " %>
+        <%= check_box_tag :clinicals %>
+        <%= submit_tag "Report", class: "btn btn-primary" %>
     <% end %>
   </div>
 </div>
@@ -12,24 +20,33 @@
 <p>
 <% unless @result.nil? %>
   <% @result.each do |link| %>
-    <% if link.include? "p=d" %>
+    <% if link.include? "dchart" %>
       <p>
       <h4><%= "Daily Chart" %></h4>
         <img src=<%= link %>>
       </p>
-    <% elsif link.include? "p=w" %>
+    <% end %>
+    <% if link.include? "wchart" %>
       <p>
       <h4><%= "Weekly Chart" %></h4>
         <img src=<%= link %>>
       </p>
-    <% elsif link.include? "p=m" %>
+    <% end %>
+    <% if link.include? "mchart" %>
       <p>
       <h4><%= "Monthly Chart" %></h4>
         <img src=<%= link %>>
       </p>
-    <% else %>
+    <% end %>
+    <% if link.include? "insider" %>
       <p>
-      <h4><%= "Daily Chart, MAs and RSI for One Year Period" %></h4>
+      <h4><%= "Insider transactions" %></h4>
+        <img src=<%= link %>>
+      </p>
+    <% end %>
+    <% if link.include? "clinical" %>
+      <p>
+      <h4><%= "Clinical Trails Pipeline" %></h4>
         <img src=<%= link %>>
       </p>
     <% end %>
@@ -37,22 +54,28 @@
 <% end %>
 </p>
 
-<div>
-  <h4>Patents Information</h4>
-</div>
-<div>
-  <table id="patents" class="table table-striped table-condensed">
-    <tr>
-    </tr>
-  </table>
-</div>
+<% unless @result.nil? %>
+  <% if @result.select {|x| x =~ /patents/}[0].nil? %>
+    <div>
+      <h4>Patents Information</h4>
+    </div>
+    <div>
+      <table id="patents" class="table table-striped table-condensed">
+        <tr>
+        </tr>
+      </table>
+    </div>
+  <% end %>
 
-<div>
-  <h4>Publications</h4>
-  <table id="publications" class="table table-striped table-condensed">
-    <tr>
-    </tr>
-  </table>
-</div>
+  <% if !@result.select {|x| x =~ /publications/}[0].nil? %>
+    <div>
+      <h4>Publications</h4>
+      <table id="publications" class="table table-striped table-condensed">
+        <tr>
+        </tr>
+      </table>
+    </div>
+  <% end %>
+<% end %>
 
 <%= Gon::Base.render_data %>
