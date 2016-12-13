@@ -2,80 +2,64 @@
 <div class="input-group" align="center" >
   <div class="form-inline">
     <%= form_tag(controller: :reports, action: :index) do %>
-      <%= label_tag "Please input a stock symbol: " %>
-      <%= text_field_tag 'ticker' %>
-        <%= label_tag "Charts: " %>
-        <%= check_box_tag :charts %>
-        <%= label_tag "Patents: " %>
-        <%= check_box_tag :patents %>
-        <%= label_tag "Publications: " %>
-        <%= check_box_tag :publications %>
-        <%= label_tag "Clinicals: " %>
-        <%= check_box_tag :clinicals %>
+    <%= label_tag "Please input a stock symbol: " %>&nbsp;
+    <%= text_field_tag 'ticker' %><span style="display:inline-block; width: 20px;"></span>
+        <%= label_tag "Biotechnology: " %>&nbsp;
+        <%= check_box_tag :biotech %><span style="display:inline-block; width: 40px;"></span>
         <%= submit_tag "Report", class: "btn btn-primary" %>
     <% end %>
   </div>
 </div>
 
-<p>
+<div>
 <% unless @result.nil? %>
   <% @result.each do |link| %>
     <% if link.include? "dchart" %>
-      <p>
       <h4><%= "Daily Chart" %></h4>
         <img src=<%= link %>>
-      </p>
-    <% end %>
-    <% if link.include? "wchart" %>
-      <p>
+        <p></p>
+    <% elsif link.include? "wchart" %>
       <h4><%= "Weekly Chart" %></h4>
         <img src=<%= link %>>
-      </p>
-    <% end %>
-    <% if link.include? "mchart" %>
-      <p>
+        <p></p>
+    <% elsif link.include? "mchart" %>
       <h4><%= "Monthly Chart" %></h4>
         <img src=<%= link %>>
-      </p>
-    <% end %>
-    <% if link.include? "insider" %>
-      <p>
+        <p></p>
+    <% elsif link.include? "insider" %>
       <h4><%= "Insider transactions" %></h4>
         <img src=<%= link %>>
-      </p>
-    <% end %>
-    <% if link.include? "clinical" %>
-      <p>
+        <p></p>
+    <% else %>
       <h4><%= "Clinical Trails Pipeline" %></h4>
         <img src=<%= link %>>
-      </p>
+        <p></p>
     <% end %>
   <% end %>
 <% end %>
-</p>
+</div>
 
-<% unless @result.nil? %>
-  <% if @result.select {|x| x =~ /patents/}[0].nil? %>
-    <div>
-      <h4>Patents Information</h4>
-    </div>
-    <div>
-      <table id="patents" class="table table-striped table-condensed">
-        <tr>
-        </tr>
-      </table>
-    </div>
-  <% end %>
+<% unless @patent_file.nil? %>
+  <div>
+    <h4> Patents Information</h4>
+  </div>
+  <div>
+    <table id="patents" class="table table-striped table-condensed">
+      <tr>
+      </tr>
+    </table>
+    <p></p>
+  </div>
+<% end %>
 
-  <% if !@result.select {|x| x =~ /publications/}[0].nil? %>
-    <div>
-      <h4>Publications</h4>
-      <table id="publications" class="table table-striped table-condensed">
-        <tr>
-        </tr>
-      </table>
-    </div>
-  <% end %>
+<% unless @pub_file.nil? %>
+  <div>
+    <h4> Publications</h4>
+    <table id="publications" class="table table-striped table-condensed">
+      <tr>
+      </tr>
+    </table>
+  </div>
 <% end %>
 
 <%= Gon::Base.render_data %>

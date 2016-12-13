@@ -3,38 +3,33 @@ class ReportsController < ApplicationController
 
   def index
     ticker = params[:ticker]
-    #@result = create_url(ticker)
     
-    if params[:charts]
+    $current_date = Date.today.to_s.gsub("-","")
+    link = "https://s3-us-west-2.amazonaws.com/mystocks/reports/#{ticker}/#{ticker}_dchart_#{$current_date}.png" 
+    #if Geturl.check_url(@result.select {|x| x =~ /_dchart_#{$current_date}/}[0]) != "200"
+    if Geturl.check_url(link) != 200
       plot_charts_insider(ticker)
+      if params[:biotech]
+        get_patents(ticker)
+        get_publications(ticker)
+        get_clinicals(ticker)
+      end
+      upload_data(ticker)
     end
-    
-    if params[:patents]
-      get_patents(ticker)
-    end
-    
-    if params[:publications]
-      get_publications(ticker)
-    end
-    
-    if params[:clinicals]
-      get_clinicals(ticker)
-    end
-    
-    if upload_data(ticker) == true
-      @result = create_url(ticker)
-    end
+
+    @result = create_url(ticker)
+
     #patent_file = Dir.glob("/Users/xieliang12/ruby/stock_analysis_app/data/#{ticker}/*").grep(/patents/)[0]
     #if !patent_file.nil?
     #  patent_name = patent_file.split("/").last
-    if get_patents(ticker) == true
-      patent_file = Dir.glob("/Users/xieliang12/ruby/stock_analysis_app/data/#{ticker}/*").grep(/patents/)[0]
-      gon.patents = JSON.parse(File.read(patent_file))
+    @patent_file = Dir.glob("/Users/xieliang12/ruby/stock_analysis_app/data/#{ticker}/*").grep(/patents_#{$current_date}/)[0]
+    if !@patent_file.nil? 
+      gon.patents = JSON.parse(File.read(@patent_file))
     end
   
-    if get_publications(ticker) == true
-      pub_file = Dir.glob("/Users/xieliang12/ruby/stock_analysis_app/data/#{ticker}/*").grep(/publications/)[0]
-      gon.publications = JSON.parse(File.read(pub_file))
+    @pub_file = Dir.glob("/Users/xieliang12/ruby/stock_analysis_app/data/#{ticker}/*").grep(/publications_#{$current_date}/)[0]
+    if !@pub_file.nil? 
+      gon.publications = JSON.parse(File.read(@pub_file))
     end
   end
     #publication_file = Dir.glob("/Users/xieliang12/ruby/stock_analysis_app/data/#{ticker}/*").grep(/publications/)[0]
@@ -60,14 +55,11 @@ class ReportsController < ApplicationController
   end
 
   def create_url(symbol)
-    files = Dir.glob("/Users/xieliang12/ruby/stock_analysis_app/data/#{symbol}/*.png")
-    links = []
-    files.each do |f|
-      link = "https://s3-us-west-2.amazonaws.com/mystocks/reports/#{symbol}/"+f.split("/").last
+    prefixes = ["_insider_", "_dchart_", "_wchart_", "_mchart_", "_clinical_"]
+    links = [] 
+    prefixes.each do |fix|
+      link = "https://s3-us-west-2.amazonaws.com/mystocks/reports/#{symbol}/#{symbol}#{fix}#{$current_date}.png"
       links << link
-      #if Geturl.check_url(link) != "200"
-      #  system ("aws s3 sync #{f.gsub("\/\.", '')} s3://mystocks/reports/#{symbol} --region us-west-2")
-      #end
     end
     return links
   end
@@ -75,6 +67,7 @@ class ReportsController < ApplicationController
   def upload_data(symbol)
     system ("/Users/xieliang12/ruby/stock_analysis_app/upload_data_to_S3.sh #{symbol}")
   end
+
 end
   #links.reject! { |link| Geturl.check_url(link) == "200" }
 
