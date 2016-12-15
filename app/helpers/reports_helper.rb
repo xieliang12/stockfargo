@@ -1,3 +1,5 @@
+require 'net/http'
+
 module ReportsHelper
   module Feature
     class Geturl 
@@ -5,6 +7,7 @@ module ReportsHelper
         begin
           url = URI.parse(url_address)
           req = Net::HTTP.new(url.host, url.port)
+          req.use_ssl = (url.scheme == "https")
           res = req.request_head(url.path)
           return res.code
         rescue => e

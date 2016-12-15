@@ -3,11 +3,10 @@ class ReportsController < ApplicationController
 
   def index
     ticker = params[:ticker]
-    
-    $current_date = Date.today.to_s.gsub("-","")
+    $current_date = Time.now.strftime("%Y%m%d")
     link = "https://s3-us-west-2.amazonaws.com/mystocks/reports/#{ticker}/#{ticker}_dchart_#{$current_date}.png" 
     #if Geturl.check_url(@result.select {|x| x =~ /_dchart_#{$current_date}/}[0]) != "200"
-    if Geturl.check_url(link) != 200
+    if Geturl.check_url(link) != "200" && !ticker.nil?
       plot_charts_insider(ticker)
       if params[:biotech]
         get_patents(ticker)
@@ -19,9 +18,6 @@ class ReportsController < ApplicationController
 
     @result = create_url(ticker)
 
-    #patent_file = Dir.glob("/Users/xieliang12/ruby/stock_analysis_app/data/#{ticker}/*").grep(/patents/)[0]
-    #if !patent_file.nil?
-    #  patent_name = patent_file.split("/").last
     @patent_file = Dir.glob("/Users/xieliang12/ruby/stock_analysis_app/data/#{ticker}/*").grep(/patents_#{$current_date}/)[0]
     if !@patent_file.nil? 
       gon.patents = JSON.parse(File.read(@patent_file))
@@ -32,9 +28,7 @@ class ReportsController < ApplicationController
       gon.publications = JSON.parse(File.read(@pub_file))
     end
   end
-    #publication_file = Dir.glob("/Users/xieliang12/ruby/stock_analysis_app/data/#{ticker}/*").grep(/publications/)[0]
-    #if !publication_file.nil?
-  
+
   #gon.patents = [{"patent_id": "20160206729","inventor": "SMITH; Gale; et al.","report_date": "July 21, 2016", "title": "IMMUNOGENIC MIDDLE EAST RESPIRATORY SYNDROME CORONAVIRUS (MERS-CoV) COMPOSITIONS AND METHODS"}, { "patent_id": "20160184427","inventor": "Morein; Bror; et al.","report_date": "June 30, 2016","title": "QUIL A FRACTION WITH LOW TOXICITY AND USE THEREOF"}]
 
   private
@@ -59,7 +53,7 @@ class ReportsController < ApplicationController
     links = [] 
     prefixes.each do |fix|
       link = "https://s3-us-west-2.amazonaws.com/mystocks/reports/#{symbol}/#{symbol}#{fix}#{$current_date}.png"
-      links << link
+      links << link if Geturl.check_url(link) == "200"
     end
     return links
   end
