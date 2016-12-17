@@ -11,24 +11,18 @@
   </div>
 </div>
 
-<span id="display"></span>
-<div id="gif" style="display: none;"><img src="https://s3-us-west-2.amazonaws.com/mystocks/ajax-loader.gif" /></div>
-
+<div style="text-align: center;font-size: 150%;">
+  <span id="display_message"></span>
+</div>
+<p></p>
+<div id="gif"><img src="https://s3-us-west-2.amazonaws.com/mystocks/ajax-loader.gif" /></div>
 <script>
-  $(document).ready(function(){
-    var submitted = false;
-    $('#submit_form').click(function() {
-      $("#display").html("Processing....");
-      $("#gif").show();
-      if(!submitted)
-      {
-        $("#progressBar").submit();
-      }
-      if(!submitted)
-        submitted = true;
-    });
+  $('#submit_form').click(function(){
+    $("#display_message").html("Report processing......");
+    $("#gif").show();
   });
 </script>
+<p></p>
 
 <div>
 <% unless @result.nil? %>
