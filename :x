@@ -10,9 +10,11 @@
 .header {
   background-color: #A9A9A9;
 }
-
+#wrapper {
+  position: fixed;
+  bottom: 0;
+}
 #element-align {
-  position: relative;
   bottom: 0;
   width: 100%;
 }

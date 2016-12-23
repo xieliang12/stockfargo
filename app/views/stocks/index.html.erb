@@ -43,52 +43,55 @@
     <div class="actions"><%= f.submit "Search" %>
     <%= link_to "Clear Search", request.path, class: "cancel-button" %>
   </div>
+  <br />
   <% end %>
 
-  <body> 
-      <table id="stocks" class="table table-condensed">
-        <thead>
-          <tr>
-            <th>Ticker</th>
-            <th>Sector</th>
-            <th>Industry</th>
-            <th>Maket_cap</th>
-            <th>P/E</th>
-            <th>PEG</th>
-            <th>P/S</th>
-            <th>P/B</th>
-            <th>EPS</th>
-            <th>52_week_high</th>
-            <th>52_week_low</th>
-            <th>Short_ratio</th>
-            <th>Institutions held</th>
-            <th>Volume</th>
-          </tr>
-        </thead>
-        <tbody>
-        <% @stocks.each do |stock| %>
-          <tr>
-            <td class="blue">
-              <%= link_to stock do %>
-                <%= stock[:symbol] %>
-              <% end %>
-            </td>
-            <td><%= stock[:sector] %></td>
-            <td><%= stock[:industry] %></td>
-            <td><%= stock[:market_cap] %></td>
-            <td><%= stock[:p_e_ratio] %></td>
-            <td><%= stock[:peg_ratio] %></td>
-            <td><%= stock[:price_to_sales_ttm] %></td>
-            <td><%= stock[:price_to_book_mrq] %></td>
-            <td><%= stock[:earnings_per_share] %></td>
-            <td><%= stock[:fifty_two_week_high] %></td>
-            <td><%= stock[:fifty_two_week_low] %></td>
-            <td><%= stock[:short_ratio] %></td>
-            <td><%= stock[:pcnt_held_by_institutions] %></td>
-            <td><%= stock[:volume] %></td>
-          </tr>
-        <% end %>
+  <div> 
+    <table id="stocks" class="table table-condensed table-striped table-bordered">
+      <thead>
+        <tr>
+          <th class="header">Ticker</th>
+          <th class="header">Sector</th>
+          <th class="header">Industry</th>
+          <th class="header">Maket_cap</th>
+          <th class="header">P/E</th>
+          <th class="header">PEG</th>
+          <th class="header">P/S</th>
+          <th class="header">P/B</th>
+          <th class="header">EPS</th>
+          <th class="header">52_week_high</th>
+          <th class="header">52_week_low</th>
+          <th class="header">Short_ratio</th>
+          <th class="header">Institutions held</th>
+          <th class="header">Volume</th>
+        </tr>
+      </thead>
+      <tbody>
+      <% @stocks.each do |stock| %>
+        <tr>
+          <td class="blue">
+            <%= link_to stock do %>
+              <%= stock[:symbol] %>
+            <% end %>
+          </td>
+          <td class="stock-center"><%= stock[:sector] %></td>
+          <td class="stock-center"><%= stock[:industry] %></td>
+          <td class="stock-center"><%= stock[:market_cap] %></td>
+          <td class="stock-center"><%= stock[:p_e_ratio] %></td>
+          <td class="stock-center"><%= stock[:peg_ratio] %></td>
+          <td class="stock-center"><%= stock[:price_to_sales_ttm] %></td>
+          <td class="stock-center"><%= stock[:price_to_book_mrq] %></td>
+          <td class="stock-center"><%= stock[:earnings_per_share] %></td>
+          <td class="stock-center"><%= stock[:fifty_two_week_high] %></td>
+          <td class="stock-center"><%= stock[:fifty_two_week_low] %></td>
+          <td class="stock-center"><%= stock[:short_ratio] %></td>
+          <td class="stock-center"><%= stock[:pcnt_held_by_institutions] %></td>
+          <td class="stock-center"><%= stock[:volume] %></td>
+        </tr>
+      <% end %>
       </tbody>
-      </table>
-  </body>
+    </table>
+  </div>
+<%= will_paginate @stocks, :id => 'element-align' %>
+<br />
 </html>

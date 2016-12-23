@@ -15,8 +15,6 @@
 //= require jquery-ui
 //= require bootstrap-sprockets
 //= require autocomplete-rails
-//= require jquery.dataTables.min
-//= require stocks_table_display
 //= require patents_display
 //= require publications_display
 //= require bootstrap-datepicker
