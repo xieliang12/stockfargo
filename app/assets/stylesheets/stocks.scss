@@ -3,7 +3,7 @@
   background-color: #F5F5F5;
 }
 
-.stock-center, .header {
+th, td {
   text-align: center;
 }
 
@@ -15,6 +15,7 @@
   position: relative;
   bottom: 0;
   width: 100%;
+  display: block;
 }
 
 .pagination {

@@ -46,47 +46,138 @@
   <br />
   <% end %>
 
+  <div>
+    <button id="overview" type="submit">Overview</button>
+    <button id="valuation" type="submit">Valuation</button>
+    <button id="financial" type="submit">Financial</button>
+  </div>
   <div> 
-    <table id="stocks" class="table table-condensed table-striped table-bordered">
+    <table id="stocks1" style="display:none" class="table table-condensed table-striped table-bordered">
       <thead>
         <tr>
-          <th class="header">Ticker</th>
-          <th class="header">Sector</th>
-          <th class="header">Industry</th>
-          <th class="header">Maket_cap</th>
-          <th class="header">P/E</th>
-          <th class="header">PEG</th>
-          <th class="header">P/S</th>
-          <th class="header">P/B</th>
-          <th class="header">EPS</th>
-          <th class="header">52_week_high</th>
-          <th class="header">52_week_low</th>
-          <th class="header">Short_ratio</th>
-          <th class="header">Institutions held</th>
-          <th class="header">Volume</th>
+          <th class="header" style="vertical-align:middle;">Ticker</th>
+          <th class="header" style="vertical-align:middle;">Sector</th>
+          <th class="header" style="vertical-align:middle;">Industry</th>
+          <th class="header" style="vertical-align:middle;">Maket cap</th>
+          <th class="header" style="vertical-align:middle;">P/E</th>
+          <th class="header" style="vertical-align:middle;">PEG</th>
+          <th class="header" style="vertical-align:middle;">P/S</th>
+          <th class="header" style="vertical-align:middle;">P/B</th>
+          <th class="header" style="vertical-align:middle;">EPS</th>
+          <th class="header" style="vertical-align:middle;">Short ratio</th>
+          <th class="header" style="vertical-align:middle;">Institutions held</th>
+          <th class="header" style="vertical-align:middle;">Volume</th>
         </tr>
       </thead>
       <tbody>
       <% @stocks.each do |stock| %>
         <tr>
-          <td class="blue">
+          <td style="vertical-align:middle;">
             <%= link_to stock do %>
               <%= stock[:symbol] %>
             <% end %>
           </td>
-          <td class="stock-center"><%= stock[:sector] %></td>
-          <td class="stock-center"><%= stock[:industry] %></td>
-          <td class="stock-center"><%= stock[:market_cap] %></td>
-          <td class="stock-center"><%= stock[:p_e_ratio] %></td>
-          <td class="stock-center"><%= stock[:peg_ratio] %></td>
-          <td class="stock-center"><%= stock[:price_to_sales_ttm] %></td>
-          <td class="stock-center"><%= stock[:price_to_book_mrq] %></td>
-          <td class="stock-center"><%= stock[:earnings_per_share] %></td>
-          <td class="stock-center"><%= stock[:fifty_two_week_high] %></td>
-          <td class="stock-center"><%= stock[:fifty_two_week_low] %></td>
-          <td class="stock-center"><%= stock[:short_ratio] %></td>
-          <td class="stock-center"><%= stock[:pcnt_held_by_institutions] %></td>
-          <td class="stock-center"><%= stock[:volume] %></td>
+          <td style="vertical-align:middle;"><%= stock[:sector] %></td>
+          <td style="vertical-align:middle;"><%= stock[:industry] %></td>
+          <td style="vertical-align:middle;"><%= stock[:market_cap] %></td>
+          <td style="vertical-align:middle;"><%= stock[:p_e_ratio] %></td>
+          <td style="vertical-align:middle;"><%= stock[:peg_ratio] %></td>
+          <td style="vertical-align:middle;"><%= stock[:price_to_sales_ttm] %></td>
+          <td style="vertical-align:middle;"><%= stock[:price_to_book_mrq] %></td>
+          <td style="vertical-align:middle;"><%= stock[:earnings_per_share] %></td>
+          <td style="vertical-align:middle;"><%= stock[:short_ratio] %></td>
+          <td style="vertical-align:middle;"><%= stock[:pcnt_held_by_institutions] %></td>
+          <td style="vertical-align:middle;"><%= stock[:volume] %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+    <table id="stocks2" style="display:none" class="table table-condensed table-striped table-bordered">
+      <thead>
+        <tr>
+          <th class="header" style="vertical-align:middle;">Ticker</th>
+          <th class="header" style="vertical-align:middle;">Company</th>
+          <th class="header" style="vertical-align:middle;">Sector</th>
+          <th class="header" style="vertical-align:middle;">Industry</th>
+          <th class="header" style="vertical-align:middle;">Market cap</th>
+          <th class="header" style="vertical-align:middle;">PEG</th>
+          <th class="header" style="vertical-align:middle;">EPS(next quarter)</th>
+          <th class="header" style="vertical-align:middle;">EPS(current year)</th>
+          <th class="header" style="vertical-align:middle;">50d MA</th>
+          <th class="header" style="vertical-align:middle;">Change(%) from 50d MA</th>
+          <th class="header" style="vertical-align:middle;">200d MA</th>
+          <th class="header" style="vertical-align:middle;">Change(%) from 200d MA</th>
+          <th class="header" style="vertical-align:middle;">Volume</th>
+        </tr>
+      </thead>
+      <tbody>
+      <% @stocks.each do |stock| %>
+        <tr>
+          <td style="vertical-align:middle;">
+            <%= link_to stock do %>
+              <%= stock[:symbol] %>
+            <% end %>
+          </td>
+          <td style="vertical-align:middle;"><%= stock[:company_name] %></td>
+          <td style="vertical-align:middle;"><%= stock[:sector] %></td>
+          <td style="vertical-align:middle;"><%= stock[:industry] %></td>
+          <td style="vertical-align:middle;"><%= stock[:market_cap] %></td>
+          <td style="vertical-align:middle;"><%= stock[:peg_ratio] %></td>
+          <td style="vertical-align:middle;"><%= stock[:eps_estimate_next_quarter] %></td>
+          <td style="vertical-align:middle;"><%= stock[:eps_estimate_current_year] %></td>
+          <td style="vertical-align:middle;"><%= stock[:fifty_day_moving_average] %></td>
+          <td style="vertical-align:middle;"><%= stock[:percent_change_from_50_day_moving_average] %></td>
+          <td style="vertical-align:middle;"><%= stock[:two_hundred_day_moving_average] %></td>
+          <td style="vertical-align:middle;"><%= stock[:percent_change_from_200_day_moving_average] %></td>
+          <td style="vertical-align:middle;"><%= stock[:volume] %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+    <table id="stocks3" style="display:none" class="table table-condensed table-striped table-bordered">
+      <thead>
+        <tr>
+          <th class="header" style="vertical-align:middle;">Ticker</th>
+          <th class="header" style="vertical-align:middle;">Shares owned</th>
+          <th class="header" style="vertical-align:middle;">Short ratio</th>
+          <th class="header" style="vertical-align:middle;">Ebitda</th>
+          <th class="header" style="vertical-align:middle;">ROA</th>
+          <th class="header" style="vertical-align:middle;">ROE</th>
+          <th class="header" style="vertical-align:middle;">Shares outstanding</th>
+          <th class="header" style="vertical-align:middle;">Inisider held(%)</th>
+          <th class="header" style="vertical-align:middle;">Institutions held(%)</th>
+          <th class="header" style="vertical-align:middle;">Short of float(%)</th>
+          <th class="header" style="vertical-align:middle;">Operating cash flow</th>
+          <th class="header" style="vertical-align:middle;">Levered cash flow</th>
+          <th class="header" style="vertical-align:middle;">Book value per share</th>
+          <th class="header" style="vertical-align:middle;">52 week low</th>
+          <th class="header" style="vertical-align:middle;">52 week high</th>
+          <th class="header" style="vertical-align:middle;">Volume</th>
+        </tr>
+      </thead>
+      <tbody>
+      <% @stocks.each do |stock| %>
+        <tr>
+          <td style="vertical-align:middle;">
+            <%= link_to stock do %>
+              <%= stock[:symbol] %>
+            <% end %>
+          </td>
+          <td style="vertical-align:middle;"><%= stock[:shares_owned] %></td>
+          <td style="vertical-align:middle;"><%= stock[:short_ratio] %></td>
+          <td style="vertical-align:middle;"><%= stock[:ebitda] %></td>
+          <td style="vertical-align:middle;"><%= stock[:roa_ttm] %></td>
+          <td style="vertical-align:middle;"><%= stock[:roe_ttm] %></td>
+          <td style="vertical-align:middle;"><%= stock[:shares_outstanding] %></td>
+          <td style="vertical-align:middle;"><%= stock[:pcnt_held_by_insiders] %></td>
+          <td style="vertical-align:middle;"><%= stock[:pcnt_held_by_institutions] %></td>
+          <td style="vertical-align:middle;"><%= stock[:pcnt_short_of_float] %></td>
+          <td style="vertical-align:middle;"><%= stock[:operating_cash_flow_ttm] %></td>
+          <td style="vertical-align:middle;"><%= stock[:levered_cash_flow_ttm] %></td>
+          <td style="vertical-align:middle;"><%= stock[:book_value_per_share_mrq] %></td>
+          <td style="vertical-align:middle;"><%= stock[:fifty_two_week_low] %></td>
+          <td style="vertical-align:middle;"><%= stock[:fifty_two_week_high] %></td>
+          <td style="vertical-align:middle;"><%= stock[:volume] %></td>
         </tr>
       <% end %>
       </tbody>
@@ -95,3 +186,56 @@
 <%= will_paginate @stocks, :id => 'element-align' %>
 <br />
 </html>
+<script src="/assets/stocks_table_display.js" type="text/javascript"></script>  
+<!--
+  var Ctable;
+  $('#overview').click(function() {
+    document.getElementById("overview").style.background='#808080';
+    document.getElementById("valuation").style.background='#DCDCDC';
+    document.getElementById("financial").style.background='#DCDCDC';
+    $('#stocks2').hide();
+    $('#stocks3').hide();
+    $('#stocks1').show();
+    Ctable = "table1";
+    localStorage.setItem('Ctable', Ctable);
+  });
+  $('#valuation').click(function() {
+    document.getElementById("overview").style.background='#DCDCDC';
+    document.getElementById("valuation").style.background='#808080';
+    document.getElementById("financial").style.background='#DCDCDC';
+    $('#stocks1').hide();
+    $('#stocks3').hide();
+    $('#stocks2').show();
+    Ctable = "table2";
+    localStorage.setItem('Ctable', Ctable);
+  });
+  $('#financial').click(function() {
+    document.getElementById("overview").style.background='#DCDCDC';
+    document.getElementById("valuation").style.background='#DCDCDC';
+    document.getElementById("financial").style.background='#808080';
+    $('#stocks1').hide();
+    $('#stocks2').hide();
+    $('#stocks3').show();
+    Ctable = "table3";
+    localStorage.setItem('Ctable', Ctable);
+  });
+  
+  var table_id = localStorage.getItem('Ctable');
+  if (table_id == "table2") {
+    document.getElementById("overview").style.background='#DCDCDC';
+    document.getElementById("valuation").style.background='#808080';
+    document.getElementById("financial").style.background='#DCDCDC';
+    $('#stocks2').show();
+  } else if (table_id == "table3") {
+    document.getElementById("overview").style.background='#DCDCDC';
+    document.getElementById("valuation").style.background='#DCDCDC';
+    document.getElementById("financial").style.background='#808080';
+    $('#stocks3').show();
+  } else {
+    document.getElementById("overview").style.background='#808080';
+    document.getElementById("valuation").style.background='#DCDCDC';
+    document.getElementById("financial").style.background='#DCDCDC';
+    $('#stocks1').show();
+  }
+</script>
+-->
