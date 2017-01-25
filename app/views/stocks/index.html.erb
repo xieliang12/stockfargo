@@ -46,7 +46,6 @@
     <div class="actions"><%= f.submit "Filter", :class => 'search-button' %>
     <%= link_to "Clear", request.path, class: "cancel-button" %>
     <br />
-    <%= text_field_tag "search_name", "Enter name", class: "search_field" %>
     <%= link_to("Save Search", saved_search_add_path(current_user, :q => request.fullpath), id: "save_search", :remote => true) %>
     </div>
   <br />
@@ -196,7 +195,8 @@
 <script type="text/javascript">
   $("#save_search").click(function() {
     $(this).attr("href", function() {
-      return this.href + "&search_name=" + $('.search_field').val();
+      var searchVal = prompt("Enter search name: ", "Search name");
+      return this.href + "&search_name=" + searchVal;
     });
   });
 </script>
