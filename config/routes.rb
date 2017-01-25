@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   mount Upmin::Engine => '/admin'
   devise_for :users
   resources :users
+  get 'saved_search_add' => 'searches#saved_search_add', :as => :saved_search_add, :format => :html
   get "home/index"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

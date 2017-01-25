@@ -1,6 +1,6 @@
 var Ctable;
 $('#overview').click(function() {
-  document.getElementById("overview").style.background='#808080';
+  document.getElementById("overview").style.background='#87CEEB';
   document.getElementById("valuation").style.background='#DCDCDC';
   document.getElementById("financial").style.background='#DCDCDC';
   $('#stocks2').hide();
@@ -11,7 +11,7 @@ $('#overview').click(function() {
 });
 $('#valuation').click(function() {
   document.getElementById("overview").style.background='#DCDCDC';
-  document.getElementById("valuation").style.background='#808080';
+  document.getElementById("valuation").style.background='#87CEEB';
   document.getElementById("financial").style.background='#DCDCDC';
   $('#stocks1').hide();
   $('#stocks3').hide();
@@ -22,7 +22,7 @@ $('#valuation').click(function() {
 $('#financial').click(function() {
   document.getElementById("overview").style.background='#DCDCDC';
   document.getElementById("valuation").style.background='#DCDCDC';
-  document.getElementById("financial").style.background='#808080';
+  document.getElementById("financial").style.background='#87CEEB';
   $('#stocks1').hide();
   $('#stocks2').hide();
   $('#stocks3').show();
@@ -33,16 +33,16 @@ $('#financial').click(function() {
 var table_id = localStorage.getItem('Ctable');
 if (table_id == "table2") {
   document.getElementById("overview").style.background='#DCDCDC';
-  document.getElementById("valuation").style.background='#808080';
+  document.getElementById("valuation").style.background='#87CEEB';
   document.getElementById("financial").style.background='#DCDCDC';
   $('#stocks2').show();
 } else if (table_id == "table3") {
   document.getElementById("overview").style.background='#DCDCDC';
   document.getElementById("valuation").style.background='#DCDCDC';
-  document.getElementById("financial").style.background='#808080';
+  document.getElementById("financial").style.background='#87CEEB';
   $('#stocks3').show();
 } else {
-  document.getElementById("overview").style.background='#808080';
+  document.getElementById("overview").style.background='#87CEEB';
   document.getElementById("valuation").style.background='#DCDCDC';
   document.getElementById("financial").style.background='#DCDCDC';
   $('#stocks1').show();

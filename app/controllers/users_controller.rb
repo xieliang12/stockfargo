@@ -29,6 +29,18 @@ class UsersController < ApplicationController
     user.destroy
     redirect_to users_path, :notice => "User deleted."
   end
+  
+  def saved_search_add
+    @saved_search = Search.create(:query => params[:q], :user_id => current_user.id)
+
+    respond_to do |format|
+      if @saved_search.save
+        format.html { redirect_to(:back) }
+      else
+        format.html { redirect_to(:back) }
+      end
+    end
+  end
 
   private
 
