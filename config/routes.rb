@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   resources :users
   get 'saved_search_add' => 'searches#saved_search_add', :as => :saved_search_add, :format => :html
   get "home/index"
+  get 'apply_search' => 'searches#apply_search', :as => :apply_search, :format => :html
+  resources :searches
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

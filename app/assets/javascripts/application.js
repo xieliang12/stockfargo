@@ -17,6 +17,7 @@
 //= require autocomplete-rails
 //= require patents_display
 //= require publications_display
+//= require filter_stocks
 //= require bootstrap-datepicker
 //= require_tree .
 

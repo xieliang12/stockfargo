@@ -2,7 +2,7 @@ class SearchesController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @searches = current_user.searches.all
+    @searches = current_user.searches.order("search_name")
   end
   
   def new
@@ -25,9 +25,16 @@ class SearchesController < ApplicationController
     end
   end
 
-  #private
+  def apply_search
+    @search = current_user.searches.find(params[:select_search]).value
+    @search_url = "http://localhost:3000/#{@search}"
+    redirect_to @search_url
+  end
 
+  #private
   #def search_params
+  #  params.require(:select_search).permit(:id, :search_name, :value)
+  #end
   #  params.require(:search).permit(:user_id => current_user.id, :value => params[:q])
   #end
 end

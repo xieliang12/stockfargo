@@ -5,7 +5,14 @@
   </head>
 
   <div class="saved_search">
-    <% select_tag "searches", options_from_collection_for_select(Search.all, :id, :search_name) %>
+    <%= form_tag(apply_search_path, method: "get") do %>
+      <%= label_tag(:select_search, "Saved Filters") %>
+      <%= select_tag(:select_search, options_from_collection_for_select(current_user.searches, :id, :search_name)) %>
+      <%= button_tag "Apply" %>
+    <% end %>
+      <!-- <label>Saved Filters</label> select_tag(:select_search, options_from_collection_for_select(current_user.searches, :id, :search_name, :value), :'data-remote' => 'true') -->
+      <!-- button_to 'Apply', {:controller => "search", :action => "apply_search", :id => $('').val() } -->
+    <!-- button_to 'Apply', apply_search_path, method: :get -->
   </div>
   <%= search_form_for @search do |f| %>
     <div class="field">
