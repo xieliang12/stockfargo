@@ -4,11 +4,12 @@
     <h3>Stocks</h3>
   </head>
 
-  <div class="saved_search">
+  <div>
     <%= form_tag(apply_search_path, method: "get") do %>
       <%= label_tag(:select_search, "Saved Filters") %>
       <%= select_tag(:select_search, options_from_collection_for_select(current_user.searches, :id, :search_name)) %>
-      <%= button_tag "Apply" %>
+      <%= button_tag "Apply", id: 'filter-btn' %>
+      <%= button_tag "Edit", id: 'edit-btn', name: 'edit_search' %>
     <% end %>
       <!-- <label>Saved Filters</label> select_tag(:select_search, options_from_collection_for_select(current_user.searches, :id, :search_name, :value), :'data-remote' => 'true') -->
       <!-- button_to 'Apply', {:controller => "search", :action => "apply_search", :id => $('').val() } -->

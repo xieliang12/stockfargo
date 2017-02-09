@@ -17,7 +17,6 @@ class SearchesController < ApplicationController
       if @search_option.save
         format.html { redirect_to :back }
         flash[:notice] = "Search was saved."
-        #format.json { redirect_to :back, notice: 'Search was saved.' }
       else
         format.html { redirect_to :back }
         format.json { redirect_to :back }
@@ -25,16 +24,32 @@ class SearchesController < ApplicationController
     end
   end
 
-  def apply_search
-    @search = current_user.searches.find(params[:select_search]).value
-    @search_url = "http://localhost:3000/#{@search}"
-    redirect_to @search_url
+  def edit
   end
 
-  #private
-  #def search_params
-  #  params.require(:select_search).permit(:id, :search_name, :value)
-  #end
+  def update
+    if @search.update(search_params)
+      redirect_to stocks_url, notice: 'Screen parameters updated.'
+    else
+      render :edit
+    end
+  end
+
+  def apply_search
+    if params[:edit_search]
+      @search = current_user.searches.find(params[:select_search])
+      render :edit
+    else
+      @filter = current_user.searches.find(params[:select_search]).value
+      @search_url = "http://localhost:3000#{@filter}"
+      redirect_to @search_url
+    end
+  end
+
+  private
+  def search_params
+    params.require(:search).permit(:search_name, :value)
+  end
   #  params.require(:search).permit(:user_id => current_user.id, :value => params[:q])
   #end
 end

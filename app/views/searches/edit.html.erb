@@ -1,0 +1,12 @@
+<header>
+  <h1>
+    Edit Search
+  </h1>
+</header>
+
+<%= simple_form_for @search do |f| %>
+  <%= f.input :search_name %>
+  <%= f.input :value %>
+
+  <%= f.button :submit, class: "btn-primary" %>
+<% end %>

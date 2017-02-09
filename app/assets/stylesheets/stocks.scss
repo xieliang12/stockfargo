@@ -46,16 +46,16 @@ th, td {
     text-decoration: underline;
 }
 
-.search-button {
+.search-button, #filter-btn, #edit-btn {
   font-family: sans-serif;
   font-size: 15px;
   font-weight: bold;
-  color: #800000;
+  color: #4682B4;
   padding: 2px 10px 2px 10px;
   border-radius: 5px;
   background-color: #F8F8FF;
 }
 
-.search-button:hover {
+.search-button:hover, #filter-btn:hover, #edit-btn:hover {
   background-color: #B0C4DE;
 }
