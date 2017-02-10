@@ -1,7 +1,7 @@
 <header>
-  <h1>
-    Edit Search
-  </h1>
+  <h3>
+    Edit Current Search
+  </h3>
 </header>
 
 <%= simple_form_for @search do |f| %>
@@ -10,3 +10,4 @@
 
   <%= f.button :submit, class: "btn-primary" %>
 <% end %>
+<%= link_to 'Cancel', stocks_path %>

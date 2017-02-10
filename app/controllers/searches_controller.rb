@@ -25,9 +25,11 @@ class SearchesController < ApplicationController
   end
 
   def edit
+    @search = current_user.searches.find(params[:id])
   end
 
   def update
+    @search = current_user.searches.find(params[:id])
     if @search.update(search_params)
       redirect_to stocks_url, notice: 'Screen parameters updated.'
     else
@@ -48,7 +50,7 @@ class SearchesController < ApplicationController
 
   private
   def search_params
-    params.require(:search).permit(:search_name, :value)
+    params.require(:search).permit(:id, :search_name, :value)
   end
   #  params.require(:search).permit(:user_id => current_user.id, :value => params[:q])
   #end
