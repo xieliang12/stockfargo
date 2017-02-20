@@ -1,13 +1,11 @@
-<header>
+<div>
   <h3>
     Edit Current Search
   </h3>
-</header>
-
-<%= simple_form_for @search do |f| %>
-  <%= f.input :search_name %>
-  <%= f.input :value %>
-
-  <%= f.button :submit, class: "btn-primary" %>
-<% end %>
-<%= link_to 'Cancel', stocks_path %>
+  <%= link_to "Delete",
+      @search,
+      method: :delete,
+      data: { confirm: "Are you sure you want to delete this saved search?" },
+      class: "delete" %>
+</div>
+<%= render 'form', search: @search %>

@@ -1,0 +1,19 @@
+<%= simple_form_for @search do |f| %>
+  <%= f.input :search_name, label: 'Saved Search Name' %>
+  <%= f.input :market_cap_gteq, label: 'Market cap(>=)' %>
+  <%= f.input :market_cap_lteq, label: 'Market cap(<=)' %>
+  <%= f.input :p_e_ratio_gteq, label: 'PE_ratio(>=)' %>
+  <%= f.input :p_e_ratio_lteq, label: 'PE_ratio(<=)' %>
+  <%= f.input :peg_ratio_gteq, label: 'PEG_ratio(>=)' %>
+  <%= f.input :peg_ratio_lteq, label: 'PEG_ratio(<=)' %>
+  <%= f.input :price_to_sales_ttm_gteq, label: 'Price to sales for the last 12 months(>=)' %>
+  <%= f.input :price_to_sales_ttm_lteq, label: 'Price to sales for the last 12 months(<=)' %>
+  <%= f.input :price_to_book_mrq_gteq, label: 'Price to book for recent quarter(>=)' %>
+  <%= f.input :price_to_book_mrq_lteq, label: 'Price to book for recent quarter(<=)' %>
+  <%= f.input :earnings_per_share_gteq, label: 'Earnings per share(>=)' %>
+  <%= f.input :earnings_per_share_lteq, label: 'Earnings per share(<=)' %>
+  <%= f.button :submit, class: "btn btn-primary" %>
+
+  <%= link_to "Cancel", stocks_path %>
+<% end %>
+<br />
